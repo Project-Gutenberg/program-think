@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 为啥俺推荐 Python[5]&amp;#65306;作为瑞士军刀的 Python&amp;#8212;&amp;#8212;顺便分享俺整理的 Python 开源库 | 编程随想镜像站 " />
+    <meta name="og:description" content="本系列几乎变成年度系列了——上一篇帖子是去年元宵节发的。这几天正值春节假期，赶紧抽空补上本系列新的一篇，免得大伙儿以为本系列“烂尾”了。
+“瑞士军刀”，大伙儿应该很熟悉，俺就不解释了。拿“瑞士军刀”来比喻 Python 就是想说明：Python 不但短小精悍，而且功能强大。今天就来介绍一下 Python 的这两个特点（尤其是后者）。
+要吹嘘 Python 的轻量级，首先要吹嘘的，自然是它简洁的代码。为了让大伙儿有个初步的印象，举几个例子。 举例1 要得到100-200之间所有奇数的3次方，只需如下一行
+[x**3 for x in range(100, 200) if (x%2)\==1]
+　举例2 如果要把上述结果拼成一个逗号分隔的字符串，还是只要一行
+&rsquo;,&lsquo;.join([str(x**3) for x in range(100, 200) if (x%2)\==1])
+　举例3
+　可能有人觉得上面2个例子是小儿科，再来举一个稍微复杂点的。只需一行代码，即可实现网络扫描（用的是第三方的 Scapy 工具）。
+# 传统的 ping 扫描，基于 ICMP 协议 ans,unans \= sr(IP(dst\=&ldquo;192.168.1.1-254&rdquo;)/ICMP()) # 局域网扫描，基于 ARP 协议 ans,unans \= srp(Ether(dst\=&ldquo;ff:ff:ff:ff:ff:ff&rdquo;)/ARP(pdst\=&ldquo;192." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=为啥俺推荐 Python[5]&amp;#65306;作为瑞士军刀的 Python&amp;#8212;&amp;#8212;顺便分享俺整理的 Python 开源库" />
+    <title> 为啥俺推荐 Python[5]&amp;#65306;作为瑞士军刀的 Python&amp;#8212;&amp;#8212;顺便分享俺整理的 Python 开源库 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    为啥俺推荐 Python[5]&amp;#65306;作为瑞士军刀的 Python&amp;#8212;&amp;#8212;顺便分享俺整理的 Python 开源库
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　本系列几乎变成年度系列了——<a href="https://program-think.blogspot.com/2012/02/why-choose-python-4-fp.html">上一篇帖子</a>是去年元宵节发的。这几天正值春节假期，赶紧抽空补上本系列新的一篇，免得大伙儿以为本系列“烂尾”了。<br />
+　　“瑞士军刀”，大伙儿应该很熟悉，俺就不解释了。拿“瑞士军刀”来比喻 Python 就是想说明：Python 不但短小精悍，而且功能强大。今天就来介绍一下 Python 的这两个特点（尤其是后者）。<br />
+　　要吹嘘 Python 的轻量级，首先要吹嘘的，自然是它简洁的代码。为了让大伙儿有个初步的印象，举几个例子。 　　举例1 　　要得到100-200之间所有奇数的3次方，只需如下一行</p>
+
+<p>[x**3 for x in range(100, 200) if (x%2)\==1]</p>
+
+<p>　　举例2 　　如果要把上述结果拼成一个逗号分隔的字符串，还是只要一行</p>
+
+<p>&rsquo;,&lsquo;.join([str(x**3) for x in range(100, 200) if (x%2)\==1])</p>
+
+<p>　　举例3</p>
+
+<p>　　可能有人觉得上面2个例子是小儿科，再来举一个稍微复杂点的。只需一行代码，即可实现网络扫描（用的是第三方的 <a href="http://www.secdev.org/projects/scapy/">Scapy</a> 工具）。</p>
+
+<p># 传统的 ping 扫描，基于 ICMP 协议
+ans,unans \= sr(IP(dst\=&ldquo;192.168.1.1-254&rdquo;)/ICMP())
+# 局域网扫描，基于 ARP 协议
+ans,unans \= srp(Ether(dst\=&ldquo;ff:ff:ff:ff:ff:ff&rdquo;)/ARP(pdst\=&ldquo;192.168.1.0/24&rdquo;), timeout\=2)</p>
+
+<p>　　比如 Python 的安装包只有十几兆，而 Java 的 JDK 安装包动辄接近100兆。 　　同样是运行一个“Hello World”，用 Python 写的进程，占用的内存会更小（相比大多数其它编程语言）。而且 Python 的运行环境（Python 虚拟机）可以很方便地嵌入到 C/C++ 程序中，只需额外带一个动态库即可。 　　很多程序员喜欢“在一棵树上吊死”——始终只用一种编程语言。俺非常反对这种倾向。要想成为一个优秀的程序员，有必要掌握【不同风格/不同范式】的编程语言。编程语言多样化的好处在于，你可以利用不同语言的特色，以取长补短。 　　而 Python 在跨语言整合方面，堪称佼佼者——你很难找到哪个语言，能像 Python 这样，跟如此多的语言进行整合。 　　下面简单举几个例子： 　　咱们常用的 Python 运行环境也称为 CPython，是用 C 语言写的。所以 Python 天生就具有跟 C/C++ 整合的能力。而且这种整合是双向的——也就是说，既可以在 Python 模块调用 C/C++ 模块，也可以在 C/C++ 模块调用 Python 模块。 　　Python 跟 C/C++ 整合，可以有如下三个优点：</p>
+
+<p>　　<strong>1. 丰富的第三方资源</strong></p>
+
+<p>　　因为 C/C++ 具有非常丰富的第三方模块（包括开源和闭源），其丰富程度超过 Java。所以 Python 可以利用这种整合能力，直接调用各种 C/C++ 的模块，来丰富自己的功能。 　　举个例子 　　比如 cURL 是一个C语言编写的应用层网络工具，功能非常强。而 Python 可以通过整合 cURL 直接获得 cURL 的强大功能。</p>
+
+<p>　　<strong>2. 性能的提升</strong></p>
+
+<p>　　除了第三方模块丰富，C/C++ 开发的模块还有一个优点——性能好。所以，Python 整合了 C/C++ 模块之后，还能趁机获得性能提升。 　　举个例子 　　比方说你要写一个 3D 游戏，其中的 3D 渲染引擎是性能瓶颈。那么你可以用 Python 整合一个 C/C++ 的 3D 渲染引擎。而 Python 只用来实现跟游戏高层应用逻辑相关的部分。这样可以一举两得：性能不差，代码不多。 　　顺便说一下：如今有不少游戏都走这个开发思路——底层引擎用【重型的】C 或 C++ 实现，以确保高性能；而高层的业务逻辑则用【轻型的】脚本语言来开发。</p>
+
+<p>　　<strong>3. 跟操作系统整合</strong></p>
+
+<p>　　地球上的操作系统，只要是有点名气的，内核都是 C 语言写的；除了操作系统内核，大部分操作系统的运行库也都是 C/C++ 编写的。所以，Python 跟 C/C++ 整合，可以带来第三个好处——跟操作系统的整合。关于这点，待会儿俺还会专门聊。<br />
+　　通过 <a href="http://www.jython.org/">Jython</a> 这个开源项目，Python 可以无缝整合到 JVM 环境中。如此一来，Python 能直接调用所有 JVM 标准库（比如 JDBC）和第三方库（比如 Lucene），还可以跟各种 JVM 语言（比如“Java、Scale、Groovy”等）进行互操作。<br />
+　　通过 <a href="http://ironpython.net/">IronPython</a> 这个开源项目，Python 可以无缝整合到 dotNet 环境中。如此一来，Python 能直接调用所有 dotNet 的标准库（比如 ADO.NET）和第三方库，还可以跟各种 dotNet 语言（比如“C#、F#”等）进行互操作。 　　顺便说一下：Jython 跟 IronPython 貌似同一个作者，牛人啊！<br />
+　　说到跨平台这个话题，俺给编程语言分一下类： 1. 可以跨平台，但无法跟操作系统深度耦合（比如 JavaScript、PHP） 2. 可以跟操作系统深度耦合，但无法跨平台（比如 VB、VBScript） 3. 既可以跨平台，又可以跟操作系统深度耦合（比如 C C++ Python） 　　为啥第三类语言能做到两者兼得？因为这类语言把选择权留给了程序猿—— 一方面，如果程序猿遵循跨平台的开发规范，那么写出来的代码就是跨平台的； 另一方面，程序猿也可以写出跟系统耦合很紧密的代码——这样的代码虽然不能跨平台，但可以发挥特定平台的强项。 　　显然俺喜欢第三类编程语言，因为这类语言给了程序猿自由。 　　Python 的跨平台特性，懂 Python 的同学估计都晓得了。所以俺单独说一下 Python 如何跟操作系统深度整合。为了照顾到大多数人，俺拿 Windows 来说事儿。</p>
+
+<p>　　在 Python 社区有一个很有名气的库，叫做 <a href="http://sourceforge.net/projects/pywin32/">PyWin32</a>。通过这个库，可以让 Python 代码很容易地调用 Windows 的 API 以及 COM 组件。</p>
+
+<p>比方说，可以用 Python 代码直接操作 Windows 注册表 比方说，可以用 Python 代码直接读写 Windows 的系统日志 比方说，可以用 Python 代码直接操作某个窗口句柄 比方说，可以利用 COM 组件，直接调用 Word 来处理 doc 格式的文档 &hellip;&hellip; 　　最后一个方面，也是最重要的一个方面，就是 Python 社区具有非常非常丰富的资源（第三方库），而且几乎都是开源的。形形色色的编程领域几乎都可以看到 Python 的身影。</p>
+
+<p>　　<strong>为了让众多程序员读者领略 Python 的丰富资源，俺特地整理了一个 wiki 页面</strong>（请用鼠标猛击“<a href="https://github.com/programthink/opensource/blob/master/libs/python.wiki">这里</a>”），放上 Python 在各个编程领域的常用模块。为了显示出 Python 代码的简洁，某些模块还放上示例代码。</p>
+
+<p>　　最后感叹一下： 　　写这篇博文只花了不到一小时，而整理这个 wiki 页面累计超过10个小时。不过这时间没白花——整理的时候顺便对某些领域有了更多的了解。这也就是写博客的好处，既可以帮助别人，又可以帮助自己。</p>
+
+<p>　　大伙儿如果觉得俺整理的清单有遗漏，欢迎到<a href="https://program-think.blogspot.com/2013/02/why-choose-python-5-tools.html">本页面</a>留言补充。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/08/why-choose-python-0-overview.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" CSDN 及人人网的用户密码分析 | 编程随想镜像站 " />
+    <meta name="og:description" content="本周，互联网上的一大新闻就是：多个知名网站被脱库，上千万用户资料侧漏。对俺这种长期在安全圈混的人，自然最关心泄漏出来的用户口令啦。这可是活生生的第一手材料啊。今天正好周末，俺就抽空分析了一下 CSDN 和 RenRen 的用户密码。毕竟这两个网站名气大，CSDN 可以代表技术人员的圈子，人人网的用户据说高校学生居多。考虑到俺博客的读者不少，或许有些人热衷于网络安全，没准也对密码分析感兴趣，干脆就把分析结果分享到博客上。 对于 CSDN 被泄露的600多万用户数据，俺多罗嗦几句： 据 CSDN 官方的说法，这仅仅是2009年的数据。不过，据圈内的小道消息，其实黑客拿到了所有用户数据，这次只是公布了其中一部分。俺查了一下公布的数据，里面没有俺的帐号——可是俺 program_think 这个帐号在2009年1月份就在 CSDN 注册了。另外，里面也没有刘未鹏同学的帐号（pongba）——他更加是 CSDN 的老用户了。而有些网友是2010年注册的帐号，却出现在公布的数据中。所以，CSDN 官方的说法很可疑。 CSDN 的样本，总共是3列数据，分别是用户名、口令、邮箱。格式比较严谨，所有数据都可用。数据量大约是642万8千。 RenRen 的样本，总共2列，分别是用户名（同时也是邮箱）和口令。此样本的格式不太严谨。俺去掉了大约3万无效数据（比如用户名不是合法的邮箱地址），还剩大约473万5千。
+长度范围
+CSDN (%)
+RenRen (%)
+[1,6]
+1.92
+31.89
+[7,12]
+90.80
+65.86
+[13,18]
+7.17
+1.70
+[19, ]
+0.21
+0.55
+长度
+CSDN (%)
+RenRen (%)
+5
+0.51
+3.10" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=CSDN 及人人网的用户密码分析" />
+    <title> CSDN 及人人网的用户密码分析 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    CSDN 及人人网的用户密码分析
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　本周，互联网上的一大新闻就是：多个知名网站被脱库，上千万用户资料侧漏。对俺这种长期在安全圈混的人，自然最关心泄漏出来的用户口令啦。这可是活生生的第一手材料啊。今天正好周末，俺就抽空分析了一下 CSDN 和 RenRen 的用户密码。毕竟这两个网站名气大，CSDN 可以代表技术人员的圈子，人人网的用户据说高校学生居多。考虑到俺博客的读者不少，或许有些人热衷于网络安全，没准也对密码分析感兴趣，干脆就把分析结果分享到博客上。 　　对于 CSDN 被泄露的600多万用户数据，俺多罗嗦几句： 　　据 CSDN 官方的说法，这仅仅是2009年的数据。不过，据圈内的小道消息，其实黑客拿到了所有用户数据，这次只是公布了其中一部分。俺查了一下公布的数据，里面没有俺的帐号——可是俺 program_think 这个帐号在2009年1月份就在 CSDN 注册了。另外，里面也没有刘未鹏同学的帐号（pongba）——他更加是 CSDN 的老用户了。而有些网友是2010年注册的帐号，却出现在公布的数据中。所以，CSDN 官方的说法很可疑。 　　CSDN 的样本，总共是3列数据，分别是用户名、口令、邮箱。格式比较严谨，所有数据都可用。数据量大约是642万8千。 　　RenRen 的样本，总共2列，分别是用户名（同时也是邮箱）和口令。此样本的格式不太严谨。俺去掉了大约3万无效数据（比如用户名不是合法的邮箱地址），还剩大约473万5千。</p>
+
+<p>长度范围</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>[1,6]</p>
+
+<p>1.92</p>
+
+<p>31.89</p>
+
+<p>[7,12]</p>
+
+<p>90.80</p>
+
+<p>65.86</p>
+
+<p>[13,18]</p>
+
+<p>7.17</p>
+
+<p>1.70</p>
+
+<p>[19, ]</p>
+
+<p>0.21</p>
+
+<p>0.55</p>
+
+<p>长度</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>5</p>
+
+<p>0.51</p>
+
+<p>3.10</p>
+
+<p>6</p>
+
+<p>1.29</p>
+
+<p>25.28</p>
+
+<p>7</p>
+
+<p>0.26</p>
+
+<p>18.11</p>
+
+<p>8</p>
+
+<p>36.38</p>
+
+<p>20.17</p>
+
+<p>9</p>
+
+<p>24.14</p>
+
+<p>12.01</p>
+
+<p>10</p>
+
+<p>14.48</p>
+
+<p>7.34</p>
+
+<p>11</p>
+
+<p>9.78</p>
+
+<p>6.79</p>
+
+<p>　　点评： 　　（从平均水平看）CSDN用户的密码长度显然大于人人网用户。</p>
+
+<p>类型</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>纯数字</p>
+
+<p>45.01</p>
+
+<p>52.97</p>
+
+<p>纯小写字母</p>
+
+<p>11.64</p>
+
+<p>19.96</p>
+
+<p>　　点评： 　　纯数字的口令，比例太高，不是好现象。 　　对于同样长度的口令，纯小写字母相比纯数字，其组合的可能性更多，更难暴力破解。</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>手机号</p>
+
+<p>2.18(约14万)</p>
+
+<p>2.91(约13万8)</p>
+
+<p>　　点评： 　　作为口令的手机号，多半就是本人的手机号。 　　手机的稳定性远高于电子邮箱。因此，这个信息的价值还是挺大滴。如果有人想搜罗手机号的话，这下可有福了。</p>
+
+<p>日期格式</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>YYMMDD</p>
+
+<p>0.14</p>
+
+<p>3.59</p>
+
+<p>YYYYMMDD</p>
+
+<p>5.92(38万)</p>
+
+<p>2.67</p>
+
+<p>MMDDYYYY</p>
+
+<p>0.06</p>
+
+<p>0.11</p>
+
+<p>YYYY-MM-DD</p>
+
+<p>小于0.01</p>
+
+<p>小于0.01</p>
+
+<p>YYYY.MM.DD</p>
+
+<p>小于0.01</p>
+
+<p>小于0.01</p>
+
+<p>YYYY/MM/DD</p>
+
+<p>小于0.01</p>
+
+<p>0</p>
+
+<p>　　点评： 　　用生日做口令，表面上看，位数还挺多（少的有6位，多的有8位，加分隔符的话甚至有10位）。 　　但其实这种口令很弱。因为可能的生日个数是很有限的——生日通常分布在1940年以来——大约是365×70=25550。即便算上不同的格式，也就十多万种。如果是程序来穷举，用不了一柱香的功夫。</p>
+
+<p>类型</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>直接拿用户名做密码</p>
+
+<p>4.55(约29万2)</p>
+
+<p>0.04</p>
+
+<p>密码包含用户名</p>
+
+<p>0.25</p>
+
+<p>小于0.01</p>
+
+<p>密码是用户名的一部分</p>
+
+<p>2.04(约13万1)</p>
+
+<p>1.57</p>
+
+<p>　　点评： 　　很奇怪，CSDN 居然有这么多人拿用户名作口令，比例远远高于人人网用户。这有点不合逻辑啊。 　　本文发出后，不少 CSDN 的用户留言，解释此原因：因为网友经常需要上 CSDN 下载东西（比如电子书）。但是 CSDN 不提供匿名下载。所以就临时注册一个用户。为了省事，口令就设置成跟用户名一样了。 俺拿四级词汇作为字典，测试了一番。比例如下：</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>0.11</p>
+
+<p>0.19</p>
+
+<p>点评： 两个网站的比例都不算高，表扬一下。 顺便说一下，在作密码的单词里，排名第一的是 password。这个习惯跟老外是一致的。 前面给出的按类型统计中，纯数字的比例是很高的。纯数字密码，常见的组合有如下。</p>
+
+<p>类型</p>
+
+<p>CSDN (%)</p>
+
+<p>RenRen (%)</p>
+
+<p>123456789</p>
+
+<p>3.91(约25万1)</p>
+
+<p>0.72(约3万4)</p>
+
+<p>12345678</p>
+
+<p>3.31(约21万2)</p>
+
+<p>0.25(约1万2)</p>
+
+<p>1234567</p>
+
+<p>小于0.01</p>
+
+<p>0.11(约5千)</p>
+
+<p>123456</p>
+
+<p>0.03(约2千)</p>
+
+<p>3.73(约17万7)</p>
+
+<p>12345</p>
+
+<p>小于0.01</p>
+
+<p>0.31(约1万5)</p>
+
+<p>全是0</p>
+
+<p>0.65(约4万2)</p>
+
+<p>0.61(约2万9)</p>
+
+<p>全是1</p>
+
+<p>1.41(约9万1)</p>
+
+<p>0.91(约4万3)</p>
+
+<p>全是2</p>
+
+<p>0.04</p>
+
+<p>0.05</p>
+
+<p>全是3</p>
+
+<p>0.03</p>
+
+<p>0.04</p>
+
+<p>全是4</p>
+
+<p>0.01</p>
+
+<p>0.02</p>
+
+<p>全是5</p>
+
+<p>0.03</p>
+
+<p>0.05</p>
+
+<p>全是6</p>
+
+<p>0.09(约6千)</p>
+
+<p>0.11(约5千)</p>
+
+<p>全是7</p>
+
+<p>0.03</p>
+
+<p>0.05</p>
+
+<p>全是8</p>
+
+<p>0.25(约1万6)</p>
+
+<p>0.13(约6千)</p>
+
+<p>全是9</p>
+
+<p>0.06</p>
+
+<p>0.05</p>
+
+<p>　　点评： 　　上述这些组合，都属于弱爆了的口令——极易被入侵者攻破。 　　使用这些组合的用户比例还挺高。这下，口令攻击者可就爽了。 　　另外，全8的口令明显要高一些，而全4的比例明显低。貌似迷信的因素也体现到口令设置了。 　　CSDN 上有不少知名博客（也叫专家博客）。本来，俺以为：既然号称专家，那安全意识应该不会太差吧。所以，俺今天抱着偷窥明星隐私的丑恶心态，查了几个名人的密码。 　　结果，看下来很令人失望啊——很多知名人士的密码，貌似也很弱啊！为了避免让某些人难堪，俺就不举例说明了。 　　说到专家博客，顺便插一句：俺也曾经也是 CSDN 的专家博客之一。今年8月份，CSDN 要搞专家实名制。但是俺死活不肯公开真实身份。所以，俺的专家资格已经被取消啦 :-(<br />
+　　经过这次脱库事件，希望诸位能意识到密码的重要性。强烈建议看一下俺去年写的帖子——《<a href="https://program-think.blogspot.com/2010/06/howto-prevent-hacker-attack-3.html">如何防止黑客入侵[2] - 如何构造安全的口令/密码</a>》。<br />
+　　还有，无论如何也不要在多个重要帐号共用<strong>相同或相似</strong>的密码。</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

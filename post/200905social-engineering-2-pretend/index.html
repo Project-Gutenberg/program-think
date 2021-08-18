@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 扫盲&amp;#8220;社会工程学&amp;#8221;[2]&amp;#65306;攻击手法之&amp;#12304;假冒身份&amp;#12305; | 编程随想镜像站 " />
+    <meta name="og:description" content="在前一个帖子里，咱们介绍了“信息收集”，今天咱们来讲一讲“假冒身份”的手法。
+为了避免某些同学误解，有必要事先澄清一下：“信息收集”、“假冒身份”、“施加影响”这三个手法不是孤立存在的，而是有机结合的。攻击者在干坏事的时候，总会混用这三个手法以达到最终目的。俺只是限于时间和篇幅，所以才大卸三块，分开来介绍。
+假冒身份说白了就是“包装”。攻击者又不是傻冒，他们当然不会轻易暴露自己的真实身份，自然要找一个马甲来伪装一下。一般来说，攻击者会根据面对的目标来选取针对性的马甲。选好马甲之后，还要在某些细节上稍微粉饰一下，让人觉得更加逼真。
+总而言之，包装要为后续的“施加影响”埋下伏笔，打好基础。
+按照二八原理，大部分人都是感性的。包装的效果，就是要充分利用和挖掘人【感性的弱点】。
+还记得上一个帖子提到的那些“不敏感信息”吗？攻击者会利用这些信息来证明自己是机构内的人，从而得到信任（具体看文本后面的实例）。博取信任是先决条件，只有先取得信任，攻击者才能再接再厉，继续博取好感、博取同情、树立权威等等。 博取好感显然是没啥坏处的。如果对方产生了好感，攻击者就便于提出更进一步的要求。比如很多保险推销员就善于利用各种手段来博取好感。 大部分人或多或少都有一点同情心，某些攻击者会刻意示弱，从而让对方产生一些同情心，然后借机提出一些要求。从这个角度来讲，很多乞丐也利用了社会工程学的技巧。
+很多人都会对权威人物有一种轻信和盲从。所以，树立权威性也有助于攻击者后续的“施加影响”。
+要达到上述的效果，首先要选择特定的身份。选择身份是很有讲究的，要综合考虑多方面的因素。由于俺不是教你如何搞社会工程攻击，所以俺只能是简单说一说。 要博取好感，攻击者可以通过建立认同感来达到。比如对方是某个秘书，攻击者会谎称自己是另一个部门的秘书（职务上的认同）。关于认同感，后面的帖子会详细介绍。 要树立权威性，可以通过冒充公司内更高级别的人物（或者和高层相关的人，比如某领导的秘书）。这个招数对于那些等级森严的公司，效果挺好。 要博取同情的话，可以看本文后面举的例子。 除了选取身份，一些外貌的细节也很重要。由于大多数攻击者采用电话的方式沟通，那些嗓音略带磁性（仅限于男性）或者充满柔情（仅限于女性）的家伙，就很占优势啦。 大多数攻击者都不会贸然现身（现真身的风险可大了）。万一在特殊情况下需要亲自出马，到对方的机构去拜访，有经验的攻击者都会选取得体的着装，以便和假冒的身份相称。在这种情况下，攻击者的长相也是一个关键因素。那些相貌堂堂、一表人才、玉树临风的家伙，第一眼就会让对方产生好感并放松警惕。
+　顺便跑题一下。我在本系列开篇的扫盲帖里面不是强调过天赋的重要性吗？所谓的社会工程学天赋，不光是脑瓜子机灵，嗓音和相貌也不能太差哦（尤其是嗓音）。俗话说得好：天生嗓音差不是你的错，但跑出来混社会工程就是你的不对啦！
+　前面忽悠了一大堆理论，为了加深同学们的印象，咱来看个简单的例子（灵感来自凯文·米特尼克所著的《欺骗的艺术》）。在此例子中，攻击者的主要目的是更进一步的“信息收集”。在该过程中，攻击者使用了“假冒身份”的手法。
+某社会工程攻击者，简称小黑。 某公司客服人员，简称小白。 小黑想打探这家公司某客户（张三）的银行帐号。小黑先进行了一些初步的信息收集（通过Google），了解到如下信息： 1、公司内部有一个商业客户资料系统，里面包含有客户的银行帐号 2、该系统简称BCIS 3、该公司的客户服务人员有BCIS的查询权限
+准备妥当之后，小黑打电话到该公司客户服务部。
+小白：你好，哪位？ 小黑：我是客户资料部的，我的电脑中了该死的病毒，没法启动了。偏偏有个总裁办的秘书让我查一个客户的资料，还催得很急。听说你们客服部也能登录到BCIS，麻烦你帮我查一下吧。谢谢啦！ 小白：哦。你要查什么资料？ 小黑：我需要一个客户的银行帐号。 小白：这个客户的ID是多少？ 小黑：客户ID在我电脑里，可是我的电脑打不开了。麻烦你根据姓名进行模糊查找，应该能找到的。这个客户叫“张三”。 小白：稍等，我查询一下。 &hellip;&hellip; 小白：找到了，你拿笔记一下，他的银行帐号是1415926535。 小黑：好的，我记下了。你可帮了我大忙啦！太谢谢你了！ 小白：不客气。 首先，攻击者通过信息收集中打听到“商业客户资料系统”简称BCIS。另外，攻击者还了解到“客服部门”有BCIS的查询权限。当小黑很自然地说出这两个信息，就会让小白相信自己是公司内的人员。 接着，小黑通过谎称自己的电脑中毒，来进行示弱并博取小白的同情。 有了上面这两条，小黑成功的把握就很大啦。如果再辅助一些特定的嗓音和语调，并且在言谈中流露出焦急的心情，那基本上就大功告成了。
+　关于“假冒身份”的话题，就暂时聊到这。本系列的下一个帖子，咱们来聊一下“施加影响”的话题。
+回到本系列的目录" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=扫盲&amp;#8220;社会工程学&amp;#8221;[2]&amp;#65306;攻击手法之&amp;#12304;假冒身份&amp;#12305;" />
+    <title> 扫盲&amp;#8220;社会工程学&amp;#8221;[2]&amp;#65306;攻击手法之&amp;#12304;假冒身份&amp;#12305; | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    扫盲&amp;#8220;社会工程学&amp;#8221;[2]&amp;#65306;攻击手法之&amp;#12304;假冒身份&amp;#12305;
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　在前一个帖子里，咱们介绍了“<a href="https://program-think.blogspot.com/2009/05/social-engineering-1-gather-information.html">信息收集</a>”，今天咱们来讲一讲“<a href="https://program-think.blogspot.com/2009/05/social-engineering-2-pretend.html">假冒身份</a>”的手法。<br />
+　　为了避免某些同学误解，有必要事先澄清一下：“<a href="https://program-think.blogspot.com/2009/05/social-engineering-1-gather-information.html">信息收集</a>”、“<a href="https://program-think.blogspot.com/2009/05/social-engineering-2-pretend.html">假冒身份</a>”、“<a href="https://program-think.blogspot.com/2009/05/social-engineering-3-influence.html">施加影响</a>”这三个手法不是孤立存在的，而是有机结合的。攻击者在干坏事的时候，总会混用这三个手法以达到最终目的。俺只是限于时间和篇幅，所以才大卸三块，分开来介绍。<br />
+　　假冒身份说白了就是“包装”。攻击者又不是傻冒，他们当然不会轻易暴露自己的真实身份，自然要找一个马甲来伪装一下。一般来说，攻击者会根据面对的目标来选取<strong>针对性</strong>的马甲。选好马甲之后，还要在某些细节上稍微粉饰一下，让人觉得更加逼真。<br />
+　　总而言之，包装要为后续的“<a href="https://program-think.blogspot.com/2009/05/social-engineering-3-influence.html">施加影响</a>”埋下伏笔，打好基础。<br />
+　　按照<a href="https://program-think.blogspot.com/2009/02/80-20-principle-0-overview.html">二八原理</a>，大部分人都是感性的。包装的效果，就是要充分利用和挖掘人【感性的弱点】。<br />
+　　还记得<a href="https://program-think.blogspot.com/2009/05/social-engineering-1-gather-information.html">上一个帖子</a>提到的那些“不敏感信息”吗？攻击者会利用这些信息来证明自己是机构内的人，从而得到信任（具体看文本后面的实例）。博取信任是先决条件，只有先取得信任，攻击者才能再接再厉，继续博取好感、博取同情、树立权威等等。 　　博取好感显然是没啥坏处的。如果对方产生了好感，攻击者就便于提出更进一步的要求。比如很多保险推销员就善于利用各种手段来博取好感。 　　大部分人或多或少都有一点同情心，某些攻击者会刻意示弱，从而让对方产生一些同情心，然后借机提出一些要求。从这个角度来讲，很多乞丐也利用了社会工程学的技巧。<br />
+　　很多人都会对权威人物有一种轻信和盲从。所以，树立权威性也有助于攻击者后续的“<a href="https://program-think.blogspot.com/2009/05/social-engineering-3-influence.html">施加影响</a>”。<br />
+　　要达到上述的效果，首先要选择特定的身份。选择身份是很有讲究的，要综合考虑多方面的因素。由于俺不是教你如何搞社会工程攻击，所以俺只能是简单说一说。 　　要博取好感，攻击者可以通过建立认同感来达到。比如对方是某个秘书，攻击者会谎称自己是另一个部门的秘书（职务上的认同）。关于认同感，后面的帖子会详细介绍。 　　要树立权威性，可以通过冒充公司内更高级别的人物（或者和高层相关的人，比如某领导的秘书）。这个招数对于那些等级森严的公司，效果挺好。 　　要博取同情的话，可以看本文后面举的例子。 　　除了选取身份，一些外貌的细节也很重要。由于大多数攻击者采用电话的方式沟通，那些嗓音略带磁性（仅限于男性）或者充满柔情（仅限于女性）的家伙，就很占优势啦。 　　大多数攻击者都不会贸然现身（现真身的风险可大了）。万一在特殊情况下需要亲自出马，到对方的机构去拜访，有经验的攻击者都会选取得体的着装，以便和假冒的身份相称。在这种情况下，攻击者的长相也是一个关键因素。那些相貌堂堂、一表人才、玉树临风的家伙，第一眼就会让对方产生好感并放松警惕。</p>
+
+<p>　　顺便跑题一下。我在本系列<a href="https://program-think.blogspot.com/2009/05/social-engineering-0-overview.html">开篇的扫盲帖</a>里面不是强调过<strong>天赋</strong>的重要性吗？所谓的社会工程学天赋，不光是脑瓜子机灵，嗓音和相貌也不能太差哦（尤其是嗓音）。俗话说得好：天生嗓音差不是你的错，但跑出来混社会工程就是你的不对啦！</p>
+
+<p>　　前面忽悠了一大堆理论，为了加深同学们的印象，咱来看个简单的例子（灵感来自<a href="https://en.wikipedia.org/wiki/Kevin_Mitnick">凯文·米特尼克</a>所著的《<a href="https://en.wikipedia.org/wiki/The_Art_of_Deception">欺骗的艺术</a>》）。在此例子中，攻击者的主要目的是更进一步的“<a href="https://program-think.blogspot.com/2009/05/social-engineering-1-gather-information.html">信息收集</a>”。在该过程中，攻击者使用了“<a href="https://program-think.blogspot.com/2009/05/social-engineering-2-pretend.html">假冒身份</a>”的手法。</p>
+
+<p>某社会工程攻击者，简称小黑。 某公司客服人员，简称小白。 小黑想打探这家公司某客户（张三）的银行帐号。小黑先进行了一些初步的信息收集（通过Google），了解到如下信息： 1、公司内部有一个商业客户资料系统，里面包含有客户的银行帐号 2、该系统简称BCIS 3、该公司的客户服务人员有BCIS的查询权限</p>
+
+<p>准备妥当之后，小黑<strong>打电话</strong>到该公司客户服务部。</p>
+
+<p>小白：你好，哪位？ 小黑：我是客户资料部的，我的电脑中了该死的病毒，没法启动了。偏偏有个总裁办的秘书让我查一个客户的资料，还催得很急。听说你们客服部也能登录到BCIS，麻烦你帮我查一下吧。谢谢啦！ 小白：哦。你要查什么资料？ 小黑：我需要一个客户的银行帐号。 小白：这个客户的ID是多少？ 小黑：客户ID在我电脑里，可是我的电脑打不开了。麻烦你根据姓名进行模糊查找，应该能找到的。这个客户叫“张三”。 小白：稍等，我查询一下。 &hellip;&hellip; 小白：找到了，你拿笔记一下，他的银行帐号是1415926535。 小黑：好的，我记下了。你可帮了我大忙啦！太谢谢你了！ 小白：不客气。 　　首先，攻击者通过信息收集中打听到“商业客户资料系统”简称BCIS。另外，攻击者还了解到“客服部门”有BCIS的查询权限。当小黑很自然地说出这两个信息，就会让小白相信自己是公司内的人员。 　　接着，小黑通过谎称自己的电脑中毒，来进行示弱并博取小白的同情。 　　有了上面这两条，小黑成功的把握就很大啦。如果再辅助一些特定的嗓音和语调，并且在言谈中流露出焦急的心情，那基本上就大功告成了。</p>
+
+<p>　　关于“假冒身份”的话题，就暂时聊到这。本系列的下一个帖子，咱们来聊一下“<a href="https://program-think.blogspot.com/2009/05/social-engineering-3-influence.html">施加影响</a>”的话题。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/05/social-engineering-0-overview.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

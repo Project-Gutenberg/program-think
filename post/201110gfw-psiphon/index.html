@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" &amp;#8220;如何翻墙&amp;#8221;系列&amp;#65306;双管齐下的赛风3 | 编程随想镜像站 " />
+    <meta name="og:description" content="话说今年赶巧是辛亥革命100周年，而天朝的中宣部对“革命”二字向来十分忌惮。所以，从9月底“沦陷日”前夕一直到现在，GFW 就没消停过。以前俺一直推荐大伙儿使用的自由门，近期虽然发布了 7.1.8、7.1.9和7.2.0这几个新版本，但是都不给力。俺在9月30日写了《扫盲 VPN 翻墙——以 Hotspot Shield 为例》一文，结果10月10日下午，Hotspot Shield就英勇牺牲。好在半年前介绍的“世界通&#43;Skype”依然坚挺，只是偶尔会掉线（从掉线的时间分布判断，可能是用的人太多导致）。但是大伙儿要牢记：在天朝从事翻墙运动，千万不能在一棵树上吊死。为了让大伙儿多一条翻墙的路，今天再来普及另外一款翻墙工具——赛风。
+赛风是由多伦多大学的公民实验室（Citizen Lab）搞出来的一款翻墙软件，专门用来帮助各国网民突破政府的网络限制和网络审查。赛风的官网在“这里”，可惜是洋文的。 早期的赛风2是纯网页代理，只有服务端软件，没有客户端软件。前不久推出赛风3之后，开始提供客户端软件。你只要在自己的电脑上运行客户端，就可以翻墙。
+　为啥说赛风是双管齐下捏？因为它同时支持 VPN 翻墙和代理翻墙。（尚不清楚这两者区别的同学，请看俺在《如何翻墙》一文的扫盲）这种玩法在翻墙界比较少见，可以说是赛风3的一大特色。具体的操作后面会介绍。 赛风的客户端是绿色软件，无需安装。它只有一个300多 KB 的 EXE 文件，堪称小巧。而且这个 EXE 文件带有数字签名。简单验证一下数字签名，就可以确保该文件没有中毒或者被恶意篡改。 赛风的界面极其简单，没有任何可配置的东西。你只需用鼠标双击 EXE，把它运行起来，就 OK 了。如果它运行在 VPN 模式，你连浏览器都无需设置；如果它运行在代理模式（SSH 模式），你顶多只要设置一下浏览器的 HTTP 代理。
+最后，非常难能可贵的是，该软件还是开源滴，遵循 GPL 协议。虽然目前“赛风3”的客户端目前只有 Windows 版本，相信不久就会有热心网友通过改造源代码，把它移植到 Linux 系统和 Mac OS 系统。如果你用的是苹果系统或者 Linux 系统，暂时可以采用 Wine 来运行赛风。
+赛风3的获取，也很简单。你只需往赛风官网提供的邮箱 get@psiphon3.com 发送任意邮件，即可收到自动回复。以前，自动回复的邮件仅仅包含下载链接（而且链接往往被 GFW 封杀）；如今，自动回复的邮件直接就附上了赛风的可执行程序（邮件里的附件名叫 psiphon3." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=&amp;#8220;如何翻墙&amp;#8221;系列&amp;#65306;双管齐下的赛风3" />
+    <title> &amp;#8220;如何翻墙&amp;#8221;系列&amp;#65306;双管齐下的赛风3 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    &amp;#8220;如何翻墙&amp;#8221;系列&amp;#65306;双管齐下的赛风3
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　话说今年赶巧是辛亥革命100周年，而天朝的中宣部对“革命”二字向来十分忌惮。所以，从9月底“沦陷日”前夕一直到现在，GFW 就没消停过。以前俺一直推荐大伙儿使用的自由门，近期虽然发布了 7.1.8、7.1.9和7.2.0这几个新版本，但是都不给力。俺在9月30日写了《<a href="https://program-think.blogspot.com/2011/09/gfw-vpn-hotspot-shield.html">扫盲 VPN 翻墙——以 Hotspot Shield 为例</a>》一文，结果10月10日下午，Hotspot Shield就英勇牺牲。好在半年前介绍的“<a href="https://program-think.blogspot.com/2011/05/through-gfw-with-skype.html">世界通+Skype</a>”依然坚挺，只是偶尔会掉线（从掉线的时间分布判断，可能是用的人太多导致）。但是大伙儿要牢记：在天朝从事翻墙运动，千万不能在一棵树上吊死。为了让大伙儿多一条翻墙的路，今天再来普及另外一款翻墙工具——赛风。<br />
+　　赛风是由多伦多大学的<a href="http://citizenlab.org/">公民实验室（Citizen Lab）</a>搞出来的一款翻墙软件，专门用来帮助各国网民突破政府的网络限制和网络审查。赛风的官网在“<a href="http://psiphon.ca/">这里</a>”，可惜是洋文的。 　　早期的赛风2是纯网页代理，只有服务端软件，没有客户端软件。前不久推出赛风3之后，开始提供客户端软件。你只要在自己的电脑上运行客户端，就可以翻墙。</p>
+
+<p>　　为啥说赛风是双管齐下捏？因为它同时支持 VPN 翻墙和代理翻墙。（尚不清楚这两者区别的同学，请看俺在《<a href="https://program-think.blogspot.com/2009/05/how-to-break-through-gfw.html">如何翻墙</a>》一文的扫盲）这种玩法在翻墙界比较少见，可以说是赛风3的一大特色。具体的操作后面会介绍。 　　赛风的客户端是绿色软件，无需安装。它只有一个300多 KB 的 EXE 文件，堪称小巧。而且这个 EXE 文件带有数字签名。简单验证一下数字签名，就可以确保该文件没有中毒或者被恶意篡改。 　　赛风的界面极其简单，没有任何可配置的东西。你只需用鼠标双击 EXE，把它运行起来，就 OK 了。如果它运行在 VPN 模式，你连浏览器都无需设置；如果它运行在代理模式（SSH 模式），你顶多只要设置一下浏览器的 HTTP 代理。<br />
+　　最后，非常难能可贵的是，该软件还是开源滴，遵循 GPL 协议。虽然目前“赛风3”的客户端目前只有 Windows 版本，相信不久就会有热心网友通过改造源代码，把它移植到 Linux 系统和 Mac OS 系统。如果你用的是苹果系统或者 Linux 系统，暂时可以采用 <a href="http://www.winehq.org/">Wine</a> 来运行赛风。<br />
+　　赛风3的获取，也很简单。你只需往赛风官网提供的邮箱 <strong><code>get@psiphon3.com</code></strong> 发送任意邮件，即可收到自动回复。以前，自动回复的邮件仅仅包含下载链接（而且链接往往被 GFW 封杀）；如今，<strong>自动回复的邮件直接就附上了赛风</strong>的可执行程序（邮件里的附件名叫 <code>psiphon3.asc</code>，改为 <code>psiphon3.exe</code> 即可直接运行）。 　　说到发邮件，俺又要啰嗦了。千万别用国内的邮箱发，容易被墙而且不安全。国内那几大门户网站，迫于党的淫威，都会配合党的走狗进行邮件内容的审查。国外的邮件，俺首先推荐 Google 的 Gmail 邮箱，其次可以用微软的 Hotmail 或 Outlook 邮箱。 　　先说明一下，赛风【无需管理员权限】即可运行。这下，喜欢上网吧的同学有福了。 　　你用鼠标双击 EXE 文件之后，会出现如下界面。左上角的箭头不停旋转，表示在尝试连接。</p>
+
+<p><img src="https://lh3.googleusercontent.com/r_Rt2wpOm5GqXKJzRQnVGlhwHpqx0RvSGTTt1QRC0vNNpZYo5XzBxkNHr0jAmkUPdjFWNuveo23R5wk4n4hn9Ckd1GB8J2sboIKJ3M7oRVs_Oe4ROt6t09ZjCvKorsuKlmQ" alt="不见图 请翻墙" /></p>
+
+<p>　　如果 VPN 连接成功，会出现如下界面。左上角的图标变为绿色，且有 VPN 字样。这时候，你电脑中的每一个网络软件（包括浏览器、聊天软件、邮件软件）<strong>无需任何设置</strong>，即可通过 VPN 翻墙。非常爽！</p>
+
+<p><img src="https://lh4.googleusercontent.com/PHj9r-uhPmVuN-b-BxFknhWeSCERoVdi-MfbUab2F0-59Tbh3dturUtH2rgadXXVuHm7QSpwdrqxm1rcIy9Zwgy5_ecZP5grSAPaASlLSadXhhk6Hf408ndHbi7XQ81QktA" alt="不见图 请翻墙" /></p>
+
+<p>　　万一 VPN 连不上，它会尝试用 SSH 方式连接墙外的赛风服务器。连接成功后，出现如下界面。左上角的图标变为绿色，且有 SSH 字样。</p>
+
+<p><img src="https://lh4.googleusercontent.com/2mgqIJmb7MiYvNxKq15qca6EM0gtpIR3WaOca9xi0YtaHvQxQNpOMpA8h0R6sh4tFOppCyEtRqcVjlQoDHep6sWi0HqU8GLHLGSOl8wk3jSWNP_kxYRUH_f06TqPuRLutPY" alt="不见图 请翻墙" /></p>
+
+<p>　　这时候，你只需把浏览器的 HTTP 代理设置成如下，即可浏览墙外的风景。</p>
+
+<p>地址 <code>127.0.0.1</code></p>
+
+<p>端口 <code>8080</code> 　　在代理模式下，赛风3还支持 SOCKS 代理。打个比方，假如想让某个聊天软件通过赛风3翻墙，只需把聊天工具的 SOCKS 代理设置成如下：</p>
+
+<p>地址 <code>127.0.0.1</code></p>
+
+<p>端口 <code>1080</code> 　　除了“聊天工具”，其它很多类型的网络软件，只要该软件支持 SOCKS 代理的，配置都大同小异。<br />
+　　今天提到的某些内容，会增加到俺写的翻墙扫盲教程——《<a href="https://program-think.blogspot.com/2009/05/how-to-break-through-gfw.html">如何翻墙</a>》以及《<a href="https://program-think.blogspot.com/2011/09/gfw-faq.html">常见翻墙问题答疑</a>》。这两份文档，俺会不定期更新，力图做到与时俱进。<br />
+　　另外，如果你是一位翻墙的新手，在看完本文之后，最好也看一下俺写的翻墙扫盲教程——《<a href="https://program-think.blogspot.com/2009/05/how-to-break-through-gfw.html">如何翻墙</a>》。 　　如有其它翻墙方面的疑问，也可以到俺博客留言。 　　最后，祝大伙儿早日掌握各种翻墙姿势，呼吸到互联网上自由的空气！</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）：</strong></p>
+
+<p><a href="https://program-think.blogspot.com/2009/05/how-to-break-through-gfw.html">如何翻墙</a>（传说中的扫盲教程，定期更新）<br />
+<a href="https://program-think.blogspot.com/2011/09/gfw-faq.html">常见翻墙问题答疑</a>（传说中的 FAQ，定期更新）<br />
+<a href="https://program-think.blogspot.com/2011/03/how-to-get-gfw-tools.html">获取翻墙软件方法大全</a>（教你在无法翻墙的情况下拿到翻墙软件）<br />
+<a href="https://program-think.blogspot.com/2013/04/gfw-vpngate.html">扫盲 VPN Gate——分布式的 VPN 服务器</a><br />
+<a href="https://program-think.blogspot.com/2013/11/tor-faq.html">关于 TOR 的常见问题解答</a><br />
+<a href="https://program-think.blogspot.com/2010/03/choose-free-gate.html">自由門——TOR 被封之后的另一个选择</a><br />
+<a href="https://program-think.blogspot.com/2011/12/gfw-wujie.html">新版本无界——赛风3失效后的另一个选择</a><br />
+<a href="https://program-think.blogspot.com/2011/09/gfw-vpn-hotspot-shield.html">扫盲 VPN 翻墙——以 Hotspot Shield 为例</a><br />
+<a href="https://program-think.blogspot.com/2009/09/break-through-gfw-with-tor.html">戴“套”翻墻的方法</a><br />
+<a href="https://program-think.blogspot.com/2012/06/gfw-i2p.html">简单扫盲 I2P 的使用</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

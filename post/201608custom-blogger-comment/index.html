@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 博客评论功能重要升级&amp;#8212;&amp;#8212;留言或围观都&amp;#12304;无需&amp;#12305;重刷页面 | 编程随想镜像站 " />
+    <meta name="og:description" content="距离上一次界面升级，已经过了一年多。最近好多天，俺都没有发新的博文，就是在忙着搞“评论区的新功能”。 为了实现这次的新功能，俺重构了很多代码，最近几天也一直在自测。
+　今天发这篇博文，除了跟大伙儿打个招呼（以免有读者担心俺被跨省），顺便也介绍一下新功能的好处。
+　这里主要提两个缺点： 1. 原先 Blogspot 的评论系统比较土鳖，每次发完一条留言/评论，都要重新刷整个页面。如果页面中的评论已经很多，那么在下一次重新载入页面的时候，会等得比较久。 2. 如果要看别人在某篇博文下刚刚发出的评论，也需要重新刷整个页面。对于评论很多的博文，重载页面同样要等。 这次的新功能，简而言之就是：采用 AJAX 风格重新改造评论区（AJAX 是一个编程界的行话，通俗说就是网页无需重刷，就可以实现各种 GUI 交互）。 采用 AJAX 风格，至少会有如下几个好处： 对于发帖人 当你点击“回复XX楼”，会弹出一个新窗口（对于某些浏览器，会新开一个标签页），你在其中输入评论内容，写完后点击“发布”，该窗口会自动关闭。然后，原先的页面会在2-3秒内自动显示你刚才发布的留言/评论。 对于围观者 当你打开某篇博文的页面之后，就【不需要】再重新刷新页面了。别人新发布的评论，会自动出现在评论区。新出现的评论，可以通过背景色区分出来。 对于俺 维护这个博客已经快8年了，耗时较多的事情，大概就是“回复评论”和“回复邮件”。 对于原先的评论系统，俺必须写一条，发一条，然后等页面重刷，然后再写下一条&hellip;这样一来，时间会拖得很长。 如今这个新功能，（由于不用重刷页面）可以大大提升俺回复评论的效率。效率提升了，俺回帖的积极性也会提升 :) 某些浏览器或者某些过滤广告的浏览器扩展，会“禁用弹出窗口”。如果你在评论区点击了“回复XX楼”的链接，但是没反应，估计就是被禁了。这时候你需要去设置一下——让俺博客所在的域名允许弹窗。 由于这次的改动比较大，有可能会有一些 Bug 俺没有自测出来。甚至还有可能把原先的某些功能改坏了。 所以，就需要热心的读者帮忙留意一下。你如果发现了 Bug，可以在评论区留言告知俺。 当然，如果你对这次的升级有其他的意见或建议，也欢迎到评论区留言告知俺。
+俺博客上，和本文相关的帖子（需翻墙）：
+博客评论功能升级（智能贴图、图片代理）——兼谈“Web 图片的隐私问题及防范”
+博客评论功能升级（“未读”状态、按时间过滤）——兼谈“为啥俺不用其它博客平台”
+博客评论功能升级（增加“留言过滤”、“200条之后自动加载”等）
+博客评论功能升级（引入 BBCode 语法），顺便分享一下实现方法" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=博客评论功能重要升级&amp;#8212;&amp;#8212;留言或围观都&amp;#12304;无需&amp;#12305;重刷页面" />
+    <title> 博客评论功能重要升级&amp;#8212;&amp;#8212;留言或围观都&amp;#12304;无需&amp;#12305;重刷页面 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    博客评论功能重要升级&amp;#8212;&amp;#8212;留言或围观都&amp;#12304;无需&amp;#12305;重刷页面
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　距离上一次界面升级，已经过了一年多。最近好多天，俺都没有发新的博文，就是在忙着搞“评论区的新功能”。 　　为了实现这次的新功能，俺重构了很多代码，最近几天也一直在自测。</p>
+
+<p>　　今天发这篇博文，除了跟大伙儿打个招呼（以免有读者担心俺被跨省），顺便也介绍一下新功能的好处。</p>
+
+<p>　　这里主要提两个缺点： 　　1. 　　原先 Blogspot 的评论系统比较土鳖，每次发完一条留言/评论，都要重新刷整个页面。如果页面中的评论已经很多，那么在下一次重新载入页面的时候，会等得比较久。 　　2. 　　如果要看别人在某篇博文下刚刚发出的评论，也需要重新刷整个页面。对于评论很多的博文，重载页面同样要等。 　　这次的新功能，简而言之就是：采用 AJAX 风格重新改造评论区（AJAX 是一个编程界的行话，通俗说就是网页无需重刷，就可以实现各种 GUI 交互）。 　　采用 AJAX 风格，至少会有如下几个好处： 　　对于发帖人 　　当你点击“回复XX楼”，会弹出一个新窗口（对于某些浏览器，会新开一个标签页），你在其中输入评论内容，写完后点击“发布”，该窗口会自动关闭。然后，原先的页面会在2-3秒内自动显示你刚才发布的留言/评论。 　　对于围观者 　　当你打开某篇博文的页面之后，就【不需要】再重新刷新页面了。别人新发布的评论，会自动出现在评论区。新出现的评论，可以通过背景色区分出来。 　　对于俺 　　维护这个博客已经快8年了，耗时较多的事情，大概就是“回复评论”和“回复邮件”。 　　对于原先的评论系统，俺必须写一条，发一条，然后等页面重刷，然后再写下一条&hellip;这样一来，时间会拖得很长。 　　如今这个新功能，（由于不用重刷页面）可以大大提升俺回复评论的效率。效率提升了，俺回帖的积极性也会提升 :) 　　某些浏览器或者某些过滤广告的浏览器扩展，会“禁用弹出窗口”。如果你在评论区点击了“回复XX楼”的链接，但是没反应，估计就是被禁了。这时候你需要去设置一下——让俺博客所在的域名允许弹窗。 　　由于这次的改动比较大，有可能会有一些 Bug 俺没有自测出来。甚至还有可能把原先的某些功能改坏了。 　　所以，就需要热心的读者帮忙留意一下。你如果发现了 Bug，可以在评论区留言告知俺。 　　当然，如果你对这次的升级有其他的意见或建议，也欢迎到评论区留言告知俺。</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p><a href="https://program-think.blogspot.com/2015/04/custom-blogger-comment.html">博客评论功能升级（智能贴图、图片代理）——兼谈“Web 图片的隐私问题及防范”</a><br />
+<a href="https://program-think.blogspot.com/2014/12/custom-blogger-comment.html">博客评论功能升级（“未读”状态、按时间过滤）——兼谈“为啥俺不用其它博客平台”</a><br />
+<a href="https://program-think.blogspot.com/2014/09/custom-blogger-comment.html">博客评论功能升级（增加“留言过滤”、“200条之后自动加载”等）</a><br />
+<a href="https://program-think.blogspot.com/2012/09/custom-blogger-comment.html">博客评论功能升级（引入 BBCode 语法），顺便分享一下实现方法</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

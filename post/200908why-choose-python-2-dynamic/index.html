@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 为什么俺推荐 Python[2]&amp;#65306;作为动态语言的 Python | 编程随想镜像站 " />
+    <meta name="og:description" content="上一篇帖子介绍了脚本语言的优缺点，然后又拿 Python 和其它脚本语言PK了一下。今天主要是忽悠一下动态语言，捎带忽悠一下 Python。如果你看完本贴，觉得动态语言不错，那俺建议你从 Python 开始入手。 考虑到还有很多同学对动态语言了解不深入，有必要先来普及一下它的基本常识。已经了解的同学，请略过本节。 通俗地说：能够在运行时修改自身程序结构的语言，就属于动态语言。那怎样才算是“运行时修改自身程序结构”捏？比如下面这几个例子都 算：在【运行时】给某个类增加成员函数及成员变量；在【运行时】改变某个类的父类；在【运行时】创建出某个函数&hellip;&hellip; 从这些例子，你应该对动态语言有一个初步的感觉了吧？毕竟传统的静态语言（比如C、C&#43;&#43;、Java），是很难达到这些效果滴。
+　另外，有个误区需要澄清一下。很多同学以为脚本语言也就是动态语言。其实两者是不等价滴——虽然两者有很大的交集。比如 C# 在4.0之后，就可以算是动态语言了，但它不能算是脚本语言；另外，有很多 Shell 脚本语言（比如 DOS &amp; Windows 下的 bat），不能算是动态语言。
+　关于动态语言更深入的介绍，大伙儿可以看“这里”。
+扫盲之后，就该来说一下，学习动态语言的动机了。搞明白动机，学起来才有干劲嘛 :-)
+假如你经常关注 TIOBE 的排名，那你应该能察觉出来，动态语言近两年的发展势头比较迅猛（在 Top10 里面，至少占了半壁江山）。这能从某个侧面反映出动态语言的影响力在扩大。
+假使你不相信 TIOBE 的排名，俺再举一个例子。两大开发阵营（Java 和 dotNet）最近几年也加大了对动态语言的支持力度。比如，dotNet 的 CLR 加入了对IronPython 和 IronRuby 的支持；Sun 当然也不甘示弱，JVM 也开始支持 Groovy，JRuby 等语言。 俺费了这许多口水，列位看官应该明白动态语言是大势所趋吧。在这动态语言大行其道的日子里，你如果连一门动态语言都没搞懂，那出门都不好意思跟人打招呼。 不过，话又说回来，静态语言也是不会消亡滴。毕竟，静态语言有自己的优势（比如严谨、性能）。长期来说，必定是动态语言和静态语言并存。各自弥补对方的缺点。
+学习一门动态语言还有一个好处：有很多时候，多学习一门语言，并不一定是为了在工作中用它，而是为了学习新的思维方式、体会新的理念。比如俺就曾经花时间去看 Prolog，但是俺在工作中，从来不需要用到它。（以后有空的话，俺会介绍一下这玩意儿）" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=为什么俺推荐 Python[2]&amp;#65306;作为动态语言的 Python" />
+    <title> 为什么俺推荐 Python[2]&amp;#65306;作为动态语言的 Python | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    为什么俺推荐 Python[2]&amp;#65306;作为动态语言的 Python
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　<a href="https://program-think.blogspot.com/2009/08/why-choose-python-1-script.html">上一篇帖子</a>介绍了脚本语言的优缺点，然后又拿 Python 和其它脚本语言PK了一下。今天主要是忽悠一下动态语言，捎带忽悠一下 Python。如果你看完本贴，觉得动态语言不错，那俺建议你从 Python 开始入手。 　　考虑到还有很多同学对动态语言了解不深入，有必要先来普及一下它的基本常识。已经了解的同学，请略过本节。 　　通俗地说：能够在运行时修改自身程序结构的语言，就属于动态语言。那怎样才算是“运行时修改自身程序结构”捏？比如下面这几个例子都 算：在【运行时】给某个类增加成员函数及成员变量；在【运行时】改变某个类的父类；在【运行时】创建出某个函数&hellip;&hellip; 　　从这些例子，你应该对动态语言有一个初步的感觉了吧？毕竟传统的静态语言（比如C、C++、Java），是很难达到这些效果滴。</p>
+
+<p>　　另外，有个误区需要澄清一下。很多同学以为脚本语言也就是动态语言。其实两者是<strong>不等价</strong>滴——虽然两者有很大的交集。比如 C# 在4.0之后，就可以算是动态语言了，但它不能算是脚本语言；另外，有很多 Shell 脚本语言（比如 DOS &amp; Windows 下的 bat），不能算是动态语言。</p>
+
+<p>　　关于动态语言更深入的介绍，大伙儿可以看“<a href="https://en.wikipedia.org/wiki/Dynamic_programming_language">这里</a>”。<br />
+　　扫盲之后，就该来说一下，学习动态语言的动机了。搞明白动机，学起来才有干劲嘛 <strong>:-)</strong><br />
+　　假如你经常关注 <a href="http://www.tiobe.com/content/paperinfo/tpci/">TIOBE</a> 的排名，那你应该能察觉出来，动态语言近两年的发展势头比较迅猛（在 Top10 里面，至少占了半壁江山）。这能从某个侧面反映出动态语言的影响力在扩大。<br />
+　　假使你不相信 <a href="http://www.tiobe.com/content/paperinfo/tpci/">TIOBE</a> 的排名，俺再举一个例子。两大开发阵营（Java 和 dotNet）最近几年也加大了对动态语言的支持力度。比如，dotNet 的 CLR 加入了对<a href="https://en.wikipedia.org/wiki/IronPython">IronPython</a> 和 <a href="https://en.wikipedia.org/wiki/IronRuby">IronRuby</a> 的支持；Sun 当然也不甘示弱，JVM 也开始支持 <a href="https://en.wikipedia.org/wiki/Groovy_%28programming_language%29">Groovy</a>，<a href="https://en.wikipedia.org/wiki/JRuby">JRuby</a> 等语言。 　　俺费了这许多口水，列位看官应该明白动态语言是大势所趋吧。在这动态语言大行其道的日子里，你如果连一门动态语言都没搞懂，那出门都不好意思跟人打招呼。 　　不过，话又说回来，静态语言也是不会消亡滴。毕竟，静态语言有自己的优势（比如严谨、性能）。长期来说，必定是动态语言和静态语言并存。各自弥补对方的缺点。<br />
+　　学习一门动态语言还有一个好处：有很多时候，多学习一门语言，并不一定是为了在工作中用它，而是为了学习新的思维方式、体会新的理念。比如俺就曾经花时间去看 <a href="https://en.wikipedia.org/wiki/Prolog">Prolog</a>，但是俺在工作中，从来不需要用到它。（以后有空的话，俺会介绍一下这玩意儿）<br />
+　　由于动态语言可以在运行时修改自身结构，因此就会产生很多静态语言所没有编程范式和手法（比如 <a href="https://en.wikipedia.org/wiki/Eval">eval</a>、<a href="https://en.wikipedia.org/wiki/Mixin">Mixin</a>）。如果你以前只使用静态语言，那你在学习了动态语言之后，多半会从它身上领略到很多新的思想和理念。<br />
+　　（关于 eval 的招数，俺后来写了一篇《<a href="https://program-think.blogspot.com/2009/08/examples-of-eval.html">再举几个动态语言 eval 手法的例子</a>》）<br />
+　　可能有些同学觉得，前面说的都有些务虚，那咱再来说点具体实在的。大牛 <a href="https://en.wikipedia.org/wiki/Edsger_W._Dijkstra">Edsger Dijkstra</a>（图灵奖得主）曾经说过：编程的艺术就是处理复杂性的艺术。咱们来看看，动态语言是如何处理复杂问题滴。 　　假设要你实现一个函数，用来完成两个数的“某种运算”，具体的运算类型作为函数的参数传入，然后该函数返回运算结果。比如：</p>
+
+<p>Foo(&ldquo;+&rdquo;, 2, 4)# 返回 6
+Foo(&rdquo;*&rdquo;, 3, 5)# 返回 15</p>
+
+<p>　　对于上述需求，你会如何实现捏？ 　　请先暗自盘算一柱香的功夫，然后再往下看。 ．．．．．． Ｔｈｉｎｋｉｎｇ ．．．．．． 　　如果你用静态语言（比如 C、C++、Java）来实现，你可能会在函数内使用一个 switch，根据不同的运算符，进行计算，然后返回计算结果。 　　对于某些比较 ＯＯ 的语言（例如 C++、Java），你或许还会抽象出一个运算的接口类（纯虚类），然后分别派生出若干个不同的计算类（比如加法类、乘法类），看起来似乎比 switch 要优雅一些。</p>
+
+<p>　　当然，用静态语言还有其它一些玩法，但是代码量都不会少。具体详情可以看很早以前的一个老故事：《<a href="http://www.cnblogs.com/linkcd/archive/2005/07/19/196087.html">4个程序员的一天</a>》。（其实俺这个例子的灵感就是从那个老故事剽窃滴）</p>
+
+<p>　　现在，咱们来看看 Python 是如何【优雅地】实现该需求滴。用 Python 只需要【两行代码】即可。请看：</p>
+
+<p>def Foo(op, n1, n2) : return eval( &ldquo;%d  %s  %d&rdquo; % (n1, op, n2) )</p>
+
+<p>　　不懂 Python 的同学可能要问了，这两行代码是啥子意思呀？<br />
+　　其实，第一行代码只不过是定义了一个函数头，第2行代码才是精华。这里面利用了动态语言常见的 <strong>eval</strong> 手法（具体参见“<a href="https://en.wikipedia.org/wiki/Eval">这里</a>”）。在 python 里面，内置的 <strong>eval</strong> 函数可以把某个字符串当成一个表达式，并对其求值。而语句 &ldquo;%d %s %d&rdquo; % (n1, op, n2) 只不过格式化出一个表达式的字符串。<br />
+　　顺便再插一句，Python 还有一个 <strong>exec</strong> 的内置函数，可以把一段 Python 源代码作为字符串参数传递给它，让该函数去执行。两个函数结合起来，就能玩出很多花样。具体的花样可以参见“<a href="https://program-think.blogspot.com/2009/08/examples-of-eval.html">这篇博文</a>”。 　　说了动态语言的种种好话，有同学会问了，动态语言有很多种，为啥非要学习 Python 捏？</p>
+
+<p>　　首先，俺在<a href="https://program-think.blogspot.com/2009/08/why-choose-python-0-overview.html">本系列</a>的<a href="https://program-think.blogspot.com/2009/08/why-choose-python-1-script.html">第1篇帖子</a>，已经对比过 Python 和另外几种脚本语言。那几种“脚本语言”碰巧也是知名的“动态语言”。Python 相对于他们的优势，此处就不再重复啰嗦了。</p>
+
+<p>　　其次，单就语法本身而言，Python 的语法对动态性的支持是很优雅、很简洁滴。通过刚才那个 <strong>eval</strong> 小例子，大伙应该已经看出来了。为了更形象一点，咱拿前面提到的 <a href="https://en.wikipedia.org/wiki/Mixin">Mixin</a> 来 Show 一下 Python 的语法是如何的简洁。<br />
+　　通俗地说，<strong>Mixin</strong> 手法需要在【运行时】给某个类增加基类（也就是父类）。对于 Python 而言，每一个类都有一个内置属性 <strong>__bases__</strong>，里面包含这个类【当前】的所有基类。假如要在【运行时】增加基类，只需操作 <strong>__bases__</strong> 这个属性即可。 　　比如有一个类 A 和类 B。如果要在运行时把 B 加为 A 的父类，可以用如下语句：　　是不是也很简洁，而且可读性也不差？相比而言，有些动态语言（比如 JavaScript），要实现类似的效果，代码就相对复杂了。 　　由于 Mixin 不是今天的重点，就不再深入展开了。 　　最后，来个总结发言：如果你之前没有接触过动态语言，建议去学习一下；如果你已经打定主意要学，Python 是比较好的候选者。</p>
+
+<p>　　好了，今天就聊到这里。<a href="https://program-think.blogspot.com/2010/08/why-choose-python-3-oop.html">下一个帖子</a>，咱们来讲讲 Python 作为一个纯粹的面向对象语言，有些啥特色。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/08/why-choose-python-0-overview.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

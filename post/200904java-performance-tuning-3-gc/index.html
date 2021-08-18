@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" Java 性能优化[3]&amp;#65306;垃圾回收&amp;#65288;GC&amp;#65289; | 编程随想镜像站 " />
+    <meta name="og:description" content="上次的帖子讲到引用类型和基本类型由于内存分配上的差异导致的性能问题。那么今天就来聊一下和内存释放（主要是 GC）有关的话题。
+事先声明一下：虽说 SUN 公司已经被 Oracle 吞并了，但是出于习惯，同时也为了偷懒节省打字，以下仍然称之为 SUN 公司。
+在 Java 虚拟机规范中（具体章节请看“这里”），提及了如下几种类型的内存空间：
+ ◇栈内存（Stack）：每个线程私有的。 ◇堆内存（Heap）：所有线程公用的。 ◇方法区（Method Area）：有点像以前常说的“进程代码段”，这里面存放了每个加载类的反射信息、类函数的代码、编译时常量等信息。
+◇原生方法栈（Native Method Stack）：主要用于 JNI 中的原生代码，平时很少涉及。
+ 　关于栈内存（Stack）和堆内存（Heap），已经在上次的帖子中扫盲过了，大伙儿应该有点印象。由于今天咱们要讨论的“垃圾回收”话题，主要是和堆内存（Heap）有关。其它的几个玩意儿不是今天讨论的重点。等以后有空了，或许可以单独聊一下。
+其实 Java 虚拟机规范中并未规定垃圾回收的相关细节。垃圾回收具体该怎么搞，完全取决于各个 JVM 的设计者。所以，不同的 JVM 之间，GC 的行为可能会有一定的差异。下面咱拿 SUN 官方的 JVM 来简单介绍一下 GC 的机制。 一般情况下，当 JVM 发现堆内存比较紧张、不太够用时，它就会着手进行垃圾回收工作。但是大伙儿要认清这样一个残酷的事实：JVM 进行 GC 的时间点是无法准确预知的。因为 GC 启动的时刻会受到各种运行环境因素的影响，随机性太大。 虽说咱们无法准确预知，但如果你想知道每次垃圾回收执行的情况，还是蛮方便的。可以通过 JVM 的命令行参数“-XX:&#43;PrintGC”把相关信息打印出来。 另外，调用 System." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=Java 性能优化[3]&amp;#65306;垃圾回收&amp;#65288;GC&amp;#65289;" />
+    <title> Java 性能优化[3]&amp;#65306;垃圾回收&amp;#65288;GC&amp;#65289; | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    Java 性能优化[3]&amp;#65306;垃圾回收&amp;#65288;GC&amp;#65289;
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　<a href="https://program-think.blogspot.com/2009/03/java-performance-tuning-1-two-types.html">上次的帖子</a>讲到引用类型和基本类型由于内存分配上的差异导致的性能问题。那么今天就来聊一下和内存释放（主要是 GC）有关的话题。<br />
+　　事先声明一下：虽说 <a href="https://program-think.blogspot.com/2009/04/oracle-buy-sun.html">SUN 公司已经被 Oracle 吞并了</a>，但是出于习惯，同时也为了偷懒节省打字，以下仍然称之为 SUN 公司。<br />
+　　在 Java 虚拟机规范中（具体章节请看“<a href="http://java.sun.com/docs/books/jvms/second_edition/html/Overview.doc.html#1732">这里</a>”），提及了如下几种类型的内存空间：</p>
+
+<blockquote>
+<p>◇栈内存（Stack）：每个线程私有的。 ◇堆内存（Heap）：所有线程公用的。 ◇方法区（Method Area）：有点像以前常说的“进程代码段”，这里面存放了每个加载类的反射信息、类函数的代码、编译时常量等信息。</p>
+
+<p>◇原生方法栈（Native Method Stack）：主要用于 JNI 中的原生代码，平时很少涉及。</p>
+</blockquote>
+
+<p>　　关于栈内存（Stack）和堆内存（Heap），已经在<a href="https://program-think.blogspot.com/2009/03/java-performance-tuning-1-two-types.html">上次的帖子</a>中扫盲过了，大伙儿应该有点印象。由于今天咱们要讨论的“垃圾回收”话题，主要是和堆内存（Heap）有关。其它的几个玩意儿不是今天讨论的重点。等以后有空了，或许可以单独聊一下。<br />
+　　其实 Java 虚拟机规范中并未规定垃圾回收的相关细节。垃圾回收具体该怎么搞，完全取决于各个 JVM 的设计者。所以，不同的 JVM 之间，GC 的行为可能会有一定的差异。下面咱拿 SUN 官方的 JVM 来<strong>简单介绍</strong>一下 GC 的机制。 　　一般情况下，当 JVM 发现堆内存比较紧张、不太够用时，它就会着手进行垃圾回收工作。但是大伙儿要认清这样一个残酷的事实：JVM 进行 GC 的时间点是无法准确预知的。因为 GC 启动的时刻会受到各种运行环境因素的影响，随机性太大。 　　虽说咱们无法准确预知，但如果你想知道每次垃圾回收执行的情况，还是蛮方便的。可以通过 JVM 的命令行参数“-XX:+PrintGC”把相关信息打印出来。 　　另外，调用 System.gc() 只是建议 JVM 进行 GC。至于 JVM 到底会不会真的去做，只有天晓得。所以，通常不建议自己手动调用 System.gc()，还是让 JVM 自行决定比较好。另外，使用 JVM 命令行参数“-XX:+DisableExplicitGC”可以让 System.gc() 不起作用。 　　一般情况下，JVM 会有一个或多个专门的垃圾回收线程，由它们负责清理回收垃圾内存。 　　垃圾回收线程会从“根集（Root Set）”开始进行对象引用的遍历。所谓的“根集”，就是正在运行的线程中，可以访问的【引用变量】的集合（比如所有线程当前函数的参数和局部变量、当前类的成员变量等等）。垃圾回收线程先找出被根集直接引用的所有对象（不妨叫集合1），然后再找出被集合1直接引用的所有对象（不妨叫集合2），然后再找出被集合2直接引用的所有对象&hellip;&hellip;如此循环往复，直到把能遍历到的对象都遍历完。 　　凡是从“根集”通过上述遍历可以到达的对象，都称为可达对象或有效对象；反之，则是不可达对象或失效对象（也就是垃圾）。<br />
+　　通过上述阶段，就把垃圾对象都找出来。然后垃圾回收线程会进行相应的清理和回收工作，包括：把垃圾内存重新变为可用内存、进行内存的整理以消除内存碎片、等等。这个过程会涉及到若干算法，有兴趣的同学可以参见“<a href="https://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29#Basic_algorithm">这里</a>”。限于篇幅，咱就不深入聊了。<br />
+　　早期的 JVM 是不采用分代技术的，所有被 GC 管理的对象都存放在同一个堆里面。这么做的缺点比较明显：每次进行GC都要遍历所有对象，开销很大。其实大部分的对象生命周期都很短（短命对象），只有少数对象比较长寿；在这些短命对象中，又只有少数对象占用的内存空间大；其它大量的短命对象都属于小对象（很符合<a href="https://program-think.blogspot.com/2009/02/80-20-principle-0-overview.html">二八原理</a>）。 　　有鉴于此，从 JDK 1.2 之后，JVM 开始使用分代的垃圾回收（Generational Garbage Collection）。JVM 把 GC 相关的内存分为“年老代”（Tenured）和“年轻代”（Nursery）、“持久代”（Permanent，对应于 JVM 规范的“方法区”）。【大部分】对象在刚创建时，都位于“年轻代”。如果某对象经历了几轮 GC 还活着（大龄对象），就把它移到“年老代”。另外，如果某个对象在创建时比较大，可能就直接被丢到年老代。经过这种策略，使得年轻代总是保存那些短命的小对象。在空间尺寸上，“年轻代”相对较小，而“年老代”相对较大。 　　因为有了分代技术，JVM 的 GC 也相应分为两种——主要收集（Major Collection）和次要收集（Minor Collection）。“主要收集”同时清理年老代和年轻代，因此开销很大，不常进行；“次要收集”仅仅清理年轻代，开销很小，经常进行。 　　刚才介绍了GC的大致原理，那GC对性能会造成哪些影响捏？主要有如下几个方面： 　　早期的 GC 比较弱智。在它工作期间，所有其它的线程都被暂停（以免影响垃圾回收工作）。等到 GC 干完活，其它线程再继续运行。所以，早期 JDK 的 GC 一旦开始工作，整个程序就会陷入假死状态，失去各种响应。 　　经过这些年的技术改进（包括采用分代技术），从 JDK 1.4 开始，GC 已经比较精明了。在它干活期间，只是偶尔暂停一下其它线程的运行（从长时间假死变为暂时性休克）。 　　试想如果JVM中的对象很多，那遍历完所有可达对象肯定是比较费劲的工作，这个开销可不小。 　　遍历完对象引用之后，对垃圾的清理和回收也有较大的开销。这部分开销可能包括复制内存块、更新对象引用等等。<br />
+　　因为今天聊的是性能的话题，必然会提到衡量 GC 性能的两个重要指标：吞吐量（Throughput）和停顿时间（Pause Time）。吞吐量这个词不是很直观，解释一下：就是 JVM【不用于】GC 的时间占总时间的比率。“吞吐量”是越大越好，“停顿时间”是越小越好。 　　不同的应用程序对这两个指标的关注点不一样（后面具体会说），也就是所谓的“众口难调”。很多 JVM 厂商为了迎合“众口”，不得不提供多种几种垃圾收集器供使用者选择。不同的收集器，采用的收集策略是不一样的，下面具体介绍。 　　使用命令行选项“-XX:+UseSerialGC”指定。 　　这种收集器是最传统的收集器。它使用单线程进行垃圾回收，对于“单 CPU 机器”比较合适。另外，小型应用或者对上述两个指标没有特殊要求的，可以使用串行收集器。 　　顾名思义，这种收集器使用多个线程进行垃圾回收以达到高吞吐量。垃圾回收线程的数量通过命令行选项“-XX:ParallelGCThreads=n”指定。可以设置该数值以便充分利用“多CPU 或 多核”。 　　当使用命令行选项“-XX:+UseParallelGC”时：它会针对年轻代使用多个垃圾回收线程，对年老代依然使用单个线程的串行方式。此选项最早在JDK 1.5引入。 　　当使用命令行选项“-XX:+UseParallelOldGC”时：它针对年轻代和年老代都使用多个垃圾回收线程的方式。不过此选项从 JDK 1.6 才开始引入。 　　使用命令行选项“-XX:+UseConcMarkSweepGC”指定。 　　这种收集器优先保证程序的响应。它会尽量让垃圾回收线程和应用自身的线程同时运行，从而降低停顿时间。此选项从JDK 1.4.1开始支持。 　　自从 JDK 1.4.2 以来，SUN 官方就停止维护该收集器了。所以俺就节省点口水，不多说了。</p>
+
+<p>　　由于 GC 是针对存储在堆内存的对象进行的。咱们如果在程序中减少引用对象的分配（也就相应降低堆内存分配），那对于提高 GC 的性能是很有帮助滴。上次“<a href="https://program-think.blogspot.com/2009/03/java-performance-tuning-2-string.html">字符串过滤实战</a>”的帖子给出了一个例子，示范了如何通过降低堆内存的分配次数来提升性能。 　　JVM 的堆内存是有讲究的，不能太大也不能太小。如果堆内存太小，JVM 老是感觉内存不够用，可能会导致频繁进行垃圾回收，影响了性能；如果堆内存太大，以至于操作系统的大部分物理内存都被 JVM 自个儿霸占了，那可能会影响其它应用程序甚至操作系统本身的性能。 　　另外，年轻代的大小（或者说“年轻代”与“年老代”的比值）对于 GC 的性能也有明显影响。如果年轻代太小，可能导致次要收集很频繁；如果年轻代太大，导致次要收集的停顿很明显。 　　JVM 提供了若干和堆内存大小相关的命令行选项，具体如下： －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ -Xms　　设置初始堆内存 -Xmx　　设置最大堆内存 -Xmn　　设置年轻代的大小 -XX:NewRatio=n　　设置年轻代与年老代的比例为“n” -XX:NewSize=n　　设置年轻代大小为“n” －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－ 　　一般情况下，JVM 的默认参数值已经够用。所以没事儿别轻易动用上述选项。如果你非调整不可，一定要做深入的性能对比测试，保证调整后的性能确实优于默认参数值。 　　前面提到了不同应用的众口难调。常见的口味有两种：(1)看重吞吐量，对停顿时间无所谓；(2)侧重于停顿时间。 　　对于某些在后台的、单纯运算密集型的应用，属于第一种。比如某些科学计算的应用。这时候建议使用并行收集器。 　　对于涉及用户 UI 交互的、实时性要求比较高、程序需要快速响应的，属于第二种。比如某些桌面游戏、某些电信交换系统。这时候建议使用并发收集器。<br />
+　　SUN 官方提供了若干关于 JVM 垃圾回收调优的说明文档：</p>
+
+<p>JDK 1.4.2 请看“<a href="http://java.sun.com/docs/hotspot/gc1.4.2/">这里</a>”；</p>
+
+<p>JDK 1.5请看“<a href="http://java.sun.com/docs/hotspot/gc5.0/gc_tuning_5.html">这里</a>”；<br />
+JDK 1.6请看“<a href="http://java.sun.com/javase/technologies/hotspot/gc/gc_tuning_6.html">这里</a>”。<br />
+　　这是 SUN 公司内的某个有心人整理的各种命令行参数大全，在“<a href="http://blogs.sun.com/watt/resource/jvm-options-list.html">这里</a>”。包括有每个参数所适用的 JDK 版本。<br />
+　　“<a href="http://java.sun.com/docs/books/jvms/second_edition/html/VMSpecTOC.doc.html">这里</a>”是 SUN 官方提供的 JVM 规范。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/06/java-performance-tuning-4-finalize.html">下一个帖子</a>，咱们来聊一下和 finalize 函数有关的性能问题。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/03/java-performance-tuning-0-overview.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 开源实践&amp;#65306;SQLite 的使用场景 | 编程随想镜像站 " />
+    <meta name="og:description" content="上次针对 SQLite 进行了扫盲，之后有同学在评论里问俺：如何在项目中使用它？今天咱来聊一下这个话题。 当你在权衡某个场合是否应该使用 SQLite 时，（在技术层面）至少要考虑如下几点： ◇能否发挥 SQLite 的某些特长？ ◇是否还有其它的替代方案？ ◇是否有啥潜在的技术风险？ 想清楚上述问题之后，再做出决策。
+关于 SQLite 的强项，在上次的帖子中已经介绍过了。考虑到某些同学比较健忘，咱再回顾一下： ◇文件型数据库，且只有单一数据文件 ◇轻量级 ◇绿色（不依赖其它软件库） ◇跨平台（包括引擎和数据文件） ◇支持内存数据库 ◇支持较大的数据文件（TB级别） 刚才说了，权衡 SQLite 的使用需要考虑其它的替代方案，所以俺简单介绍一下和 SQLite 用途相近的其它几种技术手段。后面讲应用场景的时候，会结合这几个替代方案来作对比。
+Access 数据库也是文件型的数据库，支持的很多 SQL 特性都类似于 SQLite。自从 Windows 2000 开始，Windows 就内置了 Access 的数据库引擎（Microsoft Jet Database Engine）。所以，Access 数据库在 Win2000 及后续版本的系统中是可以独立运行滴（不依赖 Office）。 Access 数据库的缺点包括： 1. 不能跨平台 2. 文件大小有限制（最大只能到 2GB） 3." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=开源实践&amp;#65306;SQLite 的使用场景" />
+    <title> 开源实践&amp;#65306;SQLite 的使用场景 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    开源实践&amp;#65306;SQLite 的使用场景
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　上次针对 SQLite 进行了扫盲，之后有同学在<a href="https://program-think.blogspot.com/2009/03/opensource-review-sqlite-database.html#comments">评论里</a>问俺：如何在项目中使用它？今天咱来聊一下这个话题。 　　当你在权衡某个场合是否应该使用 SQLite 时，（在技术层面）至少要考虑如下几点： ◇能否发挥 SQLite 的某些特长？ ◇是否还有其它的替代方案？ ◇是否有啥潜在的技术风险？ 　　想清楚上述问题之后，再做出决策。<br />
+　　关于 SQLite 的强项，在<a href="https://program-think.blogspot.com/2009/03/opensource-review-sqlite-database.html">上次的帖子</a>中已经介绍过了。考虑到某些同学比较健忘，咱再回顾一下： ◇文件型数据库，且只有单一数据文件 ◇轻量级 ◇绿色（不依赖其它软件库） ◇跨平台（包括引擎和数据文件） ◇支持内存数据库 ◇支持较大的数据文件（TB级别） 　　刚才说了，权衡 SQLite 的使用需要考虑其它的替代方案，所以俺简单介绍一下和 SQLite 用途相近的其它几种技术手段。后面讲应用场景的时候，会结合这几个替代方案来作对比。<br />
+　　Access 数据库也是文件型的数据库，支持的很多 SQL 特性都类似于 SQLite。自从 Windows 2000 开始，Windows 就内置了 Access 的数据库引擎（<a href="https://en.wikipedia.org/wiki/Microsoft_Jet_Database_Engine">Microsoft Jet Database Engine</a>）。所以，Access 数据库在 Win2000 及后续版本的系统中是可以独立运行滴（不依赖 Office）。 　　Access 数据库的缺点包括： 1. 不能跨平台 2. 文件大小有限制（最大只能到 2GB） 3. 【不】支持内存数据库。<br />
+　　其实，除了 Access 之外，还有另外一些文件型数据库。但是这些文件型数据库要么名气太小，要么不支持多种编程语言（比如：<a href="https://en.wikipedia.org/wiki/HSQLDB">HSQLDB</a>），要么已经过时（比如：FoxPro、Paradox）。所以后面分析应用场景的时候，俺就不再提及这几个玩意儿。<br />
+　　<a href="https://en.wikipedia.org/wiki/Comma-separated_values">CSV</a>（Comma Separated Values）是一种很简单的纯文本格式。它本身就是用来表示二维的数据信息的。一个 CSV 文件可以理解为数据库的一张表。 　　CSV 的缺点主要在于： 1. 【无法】直接存储非文本的数据信息（比如 BLOB 类型的信息） 2. 如果需要同时存储多张表的信息，就需要对应有多个 CSV 文件（文件一多，管理起来就嫌麻烦） 3. CSV 文件【无法】体现表之间的外键关联 　　XML 文件想必大伙儿都知道，俺就不多解释了。 　　XML 格式主要缺点包括： 1. XML 本身是树状结构，有时候不便于表示二维数据表的信息 2. 一旦数据量大（比如文件超过 10MB 或者 XML 节点层次很深）的时候，解析的开销（包括空间和时间）就不容忽视了 　　前面说了一大通，现在开始切入正题，先说说 SQLite 作为一个轻型数据库，方便干哪些事儿？ 　　在这类场景中，由于是把 SQLite 作为数据库来使的，所以基本不用考虑 CSV 和 XML 这两种替代方案。 　　如果你开发一个小型的桌面软件并且需要用到数据库功能（比如某个背单词软件），那 SQLite 是一个不错的选择。因为 SQLite 很绿色又很短小精悍。 　　不过，由于 Windows 在桌面系统的比重很大。对于那些【不考虑】跨平台的开发人员，SQLite 相对于 Access 来说，没有太大的优势。<br />
+　　眼下手机应用的发展很迅猛，相应的开发人员也多起来了。假如你就是一个手机应用程序的开发人员，并且你开发的应用需要有数据库功能（比如某个字典工具），那 SQLite 简直是不二之选。由于手机操作系统名目繁多，同时手机的内存偏小，这时候 SQLite 跨平台和轻量级的特长就充分发挥出来了。目前几个知名的手机操作系统（比如“<a href="https://en.wikipedia.org/wiki/Google_Android">Android</a>、<a href="https://en.wikipedia.org/wiki/Windows_Mobile">Windows Mobile</a>、<a href="https://en.wikipedia.org/wiki/Symbian_OS">Symbin</a>、<a href="https://en.wikipedia.org/wiki/Palm_%28PDA%29">Palm</a>”），SQLite 都支持得不错。 　　对这类场合，Access 基本没戏。 　　所谓数据容器，就是把 SQLite 作为装数据的容器，充分发挥 SQLite 【单一数据文件】的优点。另外，还可以避免自己定义一套数据文件格式的麻烦。要知道，自己定义一个【完善的】数据文件格式是难度极大滴（要考虑可扩展性、要考虑向下兼容、假如跨 CPU 架构还要考虑字节序、假如数据量大还要考虑性能、还要&hellip;）。 　　某些软件系统（尤其是些企业应用系统）经常会碰到数据备份/恢复的功能需求。比如说，客户会要求你把一些数据（往往是业务相关的）定期备份成一个【独立的】数据文件，然后存储在别处。一旦软件系统自身发生不测，再把备份的数据恢复回来。 　　另外，导入/导出功能也是经常碰到的。一般是某个软件安装在多个地方。然后需要把一些数据（往往是业务相关的）从 A 处导出，然后在 B 处导入。 　　针对上述这两种需求：如果牵涉的数据比较大，就不宜使用 XML 或者 Access；如果牵涉到跨平台，就【无法】使用 Access；如果牵涉到多种业务数据结构，就不宜使用 CSV（除非你能忍受多个 CSV 文件并存）。有上述条件限制的地方，都很适合用 SQLite。 　　这年头不联网的单机已经很少了，提供在线升级功能的软件会多起来。一般的在线升级分为两类：升级程序（比如 Firefox 自动升级新版本）和升级业务数据（比如杀毒软件升级病毒库）。这两种类型都可以使用 SQLite 来完成。把需要要升级的内容放置到 SQLite 数据库文件中，将来升级时只需下载【单一】的升级文件即可。 　　在这种场景，不太合适用 CSV 和 XML。如果不考虑跨平台，倒也可以用 Access 来搞定。 　　在这种类型的场景中，咱们要充分发挥 SQLite 内存数据库的特长。由于 SQLite 的 API 设计比较合理，操作内存数据库和操作文件数据库几乎没啥区别，所以从“文件型”切换到“内存型”，代码【无需】大改。</p>
+
+<p>　　另外，从3.6.11开始，SQLite 增加了<a href="http://www.sqlite.org/backup.html">online backup</a>接口，便于在内存数据库和文件数据库之间进行数据的同步。</p>
+
+<p>　　比如开发了某个字典工具，词库存储在 SQLite 数据库文件中。当词库越来越大的时候，你可能会发现，查词的速度越来越慢。当然啦，速度慢未必是磁盘 I/O 引起的。这时候你可以把程序略微修改一下（可能就10行左右的代码），在初始化时把词库载入内存的 SQLite 数据库中。然后再对比测试一下性能。如果发现性能有明显提升，那你以后就可以一直用这种方式了。 　　使用这个招数，要小心内存数据库对内存空间的占用。比如对于普通的 PC，占用个几兆、几十兆还行，再大的话就不爽了。另外，对于手机操作系统没必要用此招数——手机的存储介质本身已经够快了。 　　内存数据库方式，还可以用来充当临时表，存放一些临时数据。当程序的进程退出时，内存数据库就自然消失了，不会留下任何垃圾。 　　不过这种方式只适合于某个程序独占临时表的情形。如果临时表需要被多个进程共用，这招就不灵了。</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p><a href="https://program-think.blogspot.com/2009/03/opensource-review-sqlite-database.html">开源点评：SQLite 数据库扫盲</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" Java 新手的通病[1]&amp;#65306;对算法和数据结构不熟悉 | 编程随想镜像站 " />
+    <meta name="og:description" content="为什么我先拿“数据结构和算法”说事捏？这玩意是写程序最最基本的东东。不管你使用 Java 还是其它的什么语言，都离不开它。而且这玩意是跨语言的，学好之后不管在哪门语言中都能用得上。 既然“数据结构和算法”这么重要，为什么很多 Java 新手却很不熟悉捏？我琢磨了一下，估计有两种可能。有些人虽然是计算机系毕业的，但是当初压根没好好学过这门课程，到工作时早都还给老师了；还有一些人是中途转行干编程，转行后又没有好好地打基础（都指望速成）。 下面我列出几个很基本的问题，如果你每一个问题都搞得很清楚，那说明你过了这关，可以去看看下一个帖子了。否则的话，你赶紧去找本算法和数据结构的书恶补一下吧。 ★什么时候该用数组型容器、什么时候该用链表型容器？ ★什么是散列函数？HashMap 的实现原理是什么？ ★什么是递归？如果你以前从来没写过递归函数，尝试着写一个（比如用递归函数进行目录树遍历）。 ★什么是算法复杂度？ ★你是否理解空间换时间的思想？ ★写一个针对整数数组的冒泡排序函数，看看你要修改几次才能跑通。 ★写一个针对整数数组的二分查找函数，看看你要修改几次才能跑通。
+　后面接着说第2个通病：缺乏面向对象的基本功。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=Java 新手的通病[1]&amp;#65306;对算法和数据结构不熟悉" />
+    <title> Java 新手的通病[1]&amp;#65306;对算法和数据结构不熟悉 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    Java 新手的通病[1]&amp;#65306;对算法和数据结构不熟悉
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　为什么我先拿“数据结构和算法”说事捏？这玩意是写程序最最基本的东东。不管你使用 Java 还是其它的什么语言，都离不开它。而且这玩意是跨语言的，学好之后不管在哪门语言中都能用得上。 　　既然“数据结构和算法”这么重要，为什么很多 Java 新手却很不熟悉捏？我琢磨了一下，估计有两种可能。有些人虽然是计算机系毕业的，但是当初压根没好好学过这门课程，到工作时早都还给老师了；还有一些人是中途转行干编程，转行后又没有好好地打基础（都指望速成）。 　　下面我列出几个很基本的问题，如果你每一个问题都搞得很清楚，那说明你过了这关，可以去看看下一个帖子了。否则的话，你赶紧去找本算法和数据结构的书恶补一下吧。 ★什么时候该用数组型容器、什么时候该用链表型容器？ ★什么是散列函数？HashMap 的实现原理是什么？ ★什么是递归？如果你以前从来没写过递归函数，尝试着写一个（比如用递归函数进行目录树遍历）。 ★什么是算法复杂度？ ★你是否理解空间换时间的思想？ ★写一个针对整数数组的冒泡排序函数，看看你要修改几次才能跑通。 ★写一个针对整数数组的二分查找函数，看看你要修改几次才能跑通。</p>
+
+<p>　　后面接着说第2个通病：<a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-2-oo.html">缺乏面向对象的基本功</a>。</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

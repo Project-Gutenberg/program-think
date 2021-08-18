@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 博客评论功能升级&amp;#65288;引入 BBCode 语法&amp;#65289;&amp;#65292;顺便分享一下实现方法 | 编程随想镜像站 " />
+    <meta name="og:description" content="最近一年来，翻墙到俺博客留言的读者日渐增多。留言多了之后， Blogger / BlogSpot 平台的评论功能就越发显得老土了。这个周末，俺痛下决心，把默认的评论功能彻底改造一下。这番改造，主要增加了如下几个功能：
+1. 增加嵌套评论的功能 通过嵌套评论，直接回复前几楼的留言就方便了。 由于 Blogger / BlogSpot 平台在功能上仅支持两层嵌套。所以，目前俺还搞不出多层嵌套。
+2. 增加楼层数的显示
+类似 BBS 论坛的效果（目前不支持 IE 8 之前的版本）。
+3. 增加评论者的头像
+如果登录过 Gmail 或 OpenID，会显示用户的头像。对于匿名用户，显示默认头像。
+4. 评论支持 BBCode 语法
+可以在评论中使用常见的几种 BBCode 语法，目前支持如下4种：
+超链接
+[url]网址[/url]
+带标题的超链接　[url=网址]标题[/url]
+图片
+[img]图片的网址[/img]
+粗体文字
+[b]加粗的文字[/b]
+关于 BBCode 的更多介绍，请看&rdquo;这里&ldquo;。
+5. 调整了背景颜色和边框
+主要是为了看起来爽一点。
+　针对上述新功能，欢迎大伙儿多提意见和建议，便于俺改进（点&rdquo;这里&ldquo;发表你的高见）。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=博客评论功能升级&amp;#65288;引入 BBCode 语法&amp;#65289;&amp;#65292;顺便分享一下实现方法" />
+    <title> 博客评论功能升级&amp;#65288;引入 BBCode 语法&amp;#65289;&amp;#65292;顺便分享一下实现方法 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    博客评论功能升级&amp;#65288;引入 BBCode 语法&amp;#65289;&amp;#65292;顺便分享一下实现方法
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　最近一年来，翻墙到俺博客留言的读者日渐增多。留言多了之后， Blogger / BlogSpot 平台的评论功能就越发显得老土了。这个周末，俺痛下决心，把默认的评论功能彻底改造一下。这番改造，主要增加了如下几个功能：<br />
+<strong>1. 增加嵌套评论的功能</strong> 通过嵌套评论，直接回复前几楼的留言就方便了。 由于 Blogger / BlogSpot 平台在功能上仅支持两层嵌套。所以，目前俺还搞不出多层嵌套。</p>
+
+<p><strong>2. 增加楼层数的显示</strong></p>
+
+<p>类似 BBS 论坛的效果（目前不支持 IE 8 之前的版本）。</p>
+
+<p><strong>3. 增加评论者的头像</strong></p>
+
+<p>如果登录过 Gmail 或 OpenID，会显示用户的头像。对于匿名用户，显示默认头像。</p>
+
+<p><strong>4. 评论支持 BBCode 语法</strong></p>
+
+<p>可以在评论中使用常见的几种 BBCode 语法，目前支持如下4种：</p>
+
+<p>超链接</p>
+
+<p>[url]网址[/url]</p>
+
+<p>带标题的超链接　</p>
+
+<p>[url=网址]标题[/url]</p>
+
+<p>图片</p>
+
+<p>[img]图片的网址[/img]</p>
+
+<p>粗体文字</p>
+
+<p>[b]加粗的文字[/b]</p>
+
+<p>关于 BBCode 的更多介绍，请看&rdquo;<a href="https://zh.wikipedia.org/wiki/BBCode">这里</a>&ldquo;。</p>
+
+<p><strong>5. 调整了背景颜色和边框</strong></p>
+
+<p>主要是为了看起来爽一点。</p>
+
+<p>　　针对上述新功能，欢迎大伙儿多提意见和建议，便于俺改进（点&rdquo;<a href="http://program-think.blogspot.com/2012/09/custom-blogger-comment.html#comments">这里</a>&ldquo;发表你的高见）。</p>
+
+<p>　　下面是改造后的评论功能截图，如果你的浏览器看到的效果有差异，敬请告知你的浏览器版本。</p>
+
+<p><img src="https://lh5.googleusercontent.com/jAtB5-K0PTdgslIj6TsdaGTKYSHAuHmNvvQfW0v_X4VHs6wXfZULjnV6ccLyk5k3yc6XfUHtXLoYEW5_Zxwh7AkZVGTxqZ8RTMWAs6l1vAU7BStzPQ" alt="不见图 请翻墙" /></p>
+
+<p>　　接下来，俺分享一下具体的实现方式，希望对其他 Blogger / BlogSpot 上的博主有帮助。如果你没有在 Blogger / BlogSpot 上开博客，那后面的内容就无需再看了。 ================华丽的分割线================ 简介： 嵌套评论功能由于涉及到后端，需要 Blogger / BlogSpot 平台的支持才有可能实现。幸运的是，Blogger / BlogSpot 平台在今年开始提供&rdquo;嵌套评论&rdquo;的功能。 由于平台提供支持，只需要简单修改一下模板即可实现。 步骤： 首先，进入 Blogger 的后台管理界面，点左边菜单上的 &ldquo;模板&rdquo; 按钮。 出现模板管理界面后，再点 &ldquo;修改HTML&rdquo; 按钮。 出现一个对话框，点 &ldquo;继续&rdquo; 按钮。 然后勾选 &ldquo;扩展窗口小部件模板 &ldquo;。 此时，你就可以看到模板的编辑界面了。</p>
+
+<p><strong>为了保险起见，在编辑之前先备份一下模板。</strong></p>
+
+<p>在模板中找到如下代码：</p>
+
+<blockquote>
+<p><b:if cond='data:blog.pageType == &quot;item&quot;'>   <b:include data='post' name='comments'/> <a href="../../b:if">/b:if</a></p>
+</blockquote>
+
+<p>修改为如下：</p>
+
+<blockquote>
+<p><b:if cond='data:blog.pageType == &quot;item&quot;'>   <b:if cond='data:post.showThreadedComments'>     <b:include data='post' name='threaded\_comments'/>   <b:else/>     <b:include data='post' name='comments'/>   <a href="../../b:if">/b:if</a> <a href="../../b:if">/b:if</a></p>
+</blockquote>
+
+<p>最后点 &ldquo;保存&rdquo; 按钮。 如果不出意外，你的博客就有嵌套评论功能了。 添加评论的楼层数，有很多种方法。比较简单的有如下两种。 简介： 直接在模板中嵌入 JS 代码。利用模板中的 loop 循环，递增楼层号并显示。 优点： 支持各种浏览器 缺点， 适合用于传统的评论界面。对于新的嵌套评论界面，需要对模板进行大改，比较难搞。 步骤： 根据刚才介绍过的步骤，进入模板编辑界面。</p>
+
+<p><strong>为了保险起见，在编辑之前先备份一下模板。</strong></p>
+
+<p>在模板中找到如下代码：</p>
+
+<blockquote>
+<p><b:loop values='data:post.comments' var='comment'></p>
+</blockquote>
+
+<p>修改为如下：</p>
+
+<blockquote>
+<p><script type='text/javascript'>nCommentIndex = 1;</script> <b:loop values='data:post.comments' var='comment'>   <span class='comment-index'>     <script type='text/javascript'>document.write(&lsquo;第&rsquo;+nCommentIndex+&lsquo;楼&rsquo;); nCommentIndex+=1;</script>   </span></p>
+</blockquote>
+
+<p>最后点 &ldquo;保存&rdquo; 按钮。 如果你想调整楼层号的显示样式，可以在模板的 CSS 代码尾部追加如下代码： （请根据自己的喜好修改下划线部分）</p>
+
+<blockquote>
+<p>.comment-index {<br />
+  float: 浮动靠左还是靠右;<br />
+  font: 用啥字体;<br />
+  font-size: 字体大小;<br />
+  color: 用啥颜色; }</p>
+</blockquote>
+
+<p>全部修改完之后，点 &ldquo;保存&rdquo; 按钮。 简介： 利用 CSS 的计数器功能，实现楼层号的递增及显示。 优点： 支持嵌套评论的界面 缺点： 浏览器兼容性不够好（比如 IE6 不支持 CSS 的 content 属性） 步骤： 根据刚才介绍过的步骤，进入模板编辑界面。</p>
+
+<p><strong>为了保险起见，在编辑之前先备份一下模板。</strong></p>
+
+<p>在模板代码中，找到 CSS 的那段代码，然后在 CSS 代码的尾部追加如下代码： （以下这2段代码就是俺博客用的，欢迎剽窃） 这一段用来显示楼层号</p>
+
+<blockquote>
+<p>.comment-thread ol {   counter-reset: comment_counter; } .comment-thread li:before {   content: counter(comment_counter,decimal) &ldquo;楼&rdquo;;   counter-increment: comment_counter;   float: right;   position: relative;   z-index: 1;   text-align: center;   font-size: 120%;   color: $mainLinkColor;   border: none;   margin-top: 10px;   margin-right: 10px;</p>
+
+<p>}</p>
+</blockquote>
+
+<p>这一段用来显示嵌套在某楼层之下的单元号</p>
+
+<blockquote>
+<p>.comment-thread ol ol {   counter-reset: child_comment_counter; } .comment-thread li li:before {   content: counter(comment_counter,decimal) &ldquo;楼 &rdquo; counter(child_comment_counter,decimal) &ldquo;单元&rdquo;;   counter-increment: child_comment_counter;   font-size: 100%;</p>
+
+<p>}</p>
+</blockquote>
+
+<p>修改完之后，点 &ldquo;保存&rdquo; 按钮。 根据刚才介绍过的步骤，进入模板编辑界面。</p>
+
+<p><strong>为了保险起见，在编辑之前先备份一下模板。</strong></p>
+
+<p>在模板中找到如下代码：</p>
+
+<blockquote>
+<p><dl id='comments-block'></p>
+</blockquote>
+
+<p>修改为如下：</p>
+
+<blockquote>
+<p><dl expr:class='data:post.avatarIndentClass' id='comments-block'></p>
+</blockquote>
+
+<p>还没完，就在这行代码下方2-3行的地方有如下代码：</p>
+
+<blockquote>
+<p><a expr:name='data:comment.anchorName'/></p>
+</blockquote>
+
+<p>修改为如下：</p>
+
+<blockquote>
+<p><a expr:name='data:comment.anchorName'/> <b:if cond='data:blog.enabledCommentProfileImages'>   <div expr:class='data:comment.avatarContainerClass'>     <a href="data:comment.authorAvatarImage/">data:comment.authorAvatarImage/</a>   </div> <a href="../../b:if">/b:if</a></p>
+</blockquote>
+
+<p>如果你想调整头像的显示尺寸，可以在模板的 CSS 代码尾部追加如下代码： （请根据自己的喜好修改下划线部分）</p>
+
+<blockquote>
+<p>.comments .avatar-image-container img {<br />
+  width: 图像宽度;<br />
+  height: 图像高度;<br />
+  border: 图像边界; }</p>
+</blockquote>
+
+<p>修改完之后，点 &ldquo;保存&rdquo; 按钮。<br />
+　　今天就先介绍到这里。以后如果有空，俺还会继续改进本博客的评论功能。相关的代码也会继续补充到本文中。欢迎其它博主<a href="http://program-think.blogspot.com/2012/09/custom-blogger-comment.html#comments">到本文留言</a>，交流经验。</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p><a href="https://program-think.blogspot.com/2015/04/custom-blogger-comment.html">博客评论功能升级（智能贴图、图片代理）——兼谈“Web 图片的隐私问题及防范”</a><br />
+<a href="https://program-think.blogspot.com/2014/12/custom-blogger-comment.html">博客评论功能升级（“未读”状态、按时间过滤）——兼谈“为啥俺不用其它博客平台”</a><br />
+<a href="https://program-think.blogspot.com/2014/09/custom-blogger-comment.html">博客评论功能升级（增加“留言过滤”、“200条之后自动加载”等）</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

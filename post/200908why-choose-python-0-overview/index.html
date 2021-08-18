@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 为什么俺推荐 Python[0]&amp;#65306;概述 | 编程随想镜像站 " />
+    <meta name="og:description" content="当初博客开张的时候，原计划在编程语言方面聊聊 C&#43;&#43;、Java 和 Python。谁曾想半年多过去了，尚未写过 Python 的帖子。实在是说不过去啊！所以今天赶紧写一篇来凑数。
+　其实俺接触 Python 的时间，也不算太早（大概是2003年那会儿）。当时看到 Eric Raymond 关于几大编程语言的评价（原文在“这里”，翻译在“这里”），之后又看了他写的《Why Python?》。感觉这位大牛蛮器重 Python 滴，于是俺也就跟风学习了一番。从此一发不可收拾——现在 Python 已然成为俺最常使用的脚本语言了。
+　接下来，俺就从几个不同的角度来鼓吹一下 Python。假如你从来没有听说过或者从来没用过此语言，听了俺的忽悠之后，或许会有所心动 :-) 假如你觉得俺只不过是 Python 阵营的枪手，发发广告帖，那你就不用再浪费宝贵的时间去看后续的帖子了。 按照俺先前的习惯，会把接下来的内容拆成几个帖子来写&hellip;&hellip; 为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：
+1. 作为脚本语言的 Python
+2. 作为动态语言的 Python
+3. 作为面向对象语言的 Python
+4. 作为函数式编程语言的 Python
+5. 作为瑞士军刀的 Python——顺便分享俺整理的 Python 开源库 6. （未完待续）
+俺博客上，和本文相关的帖子（需翻墙）：
+《每周转载：IT 大牛谈编程语言（网文3篇）》" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=为什么俺推荐 Python[0]&amp;#65306;概述" />
+    <title> 为什么俺推荐 Python[0]&amp;#65306;概述 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    为什么俺推荐 Python[0]&amp;#65306;概述
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　当初博客开张的时候，原计划在编程语言方面聊聊 C++、Java 和 Python。谁曾想半年多过去了，尚未写过 Python 的帖子。实在是说不过去啊！所以今天赶紧写一篇来凑数。</p>
+
+<p>　　其实俺接触 Python 的时间，也不算太早（大概是2003年那会儿）。当时看到 <a href="https://en.wikipedia.org/wiki/Eric_S._Raymond">Eric Raymond</a> 关于几大编程语言的评价（原文在“<a href="http://www.catb.org/%7Eesr/writings/taoup/html/ch14s04.html#c_lang">这里</a>”，翻译在“<a href="http://blog.csdn.net/myan/archive/2003/05/15/1923.aspx">这里</a>”），之后又看了他写的《<a href="http://www.linuxjournal.com/article/3882">Why Python?</a>》。感觉这位大牛蛮器重 Python 滴，于是俺也就跟风学习了一番。从此一发不可收拾——现在 Python 已然成为俺最常使用的脚本语言了。</p>
+
+<p>　　接下来，俺就从几个不同的角度来鼓吹一下 Python。假如你从来没有听说过或者从来没用过此语言，听了俺的忽悠之后，或许会有所心动 :-) 假如你觉得俺只不过是 Python 阵营的枪手，发发广告帖，那你就不用再浪费宝贵的时间去看后续的帖子了。 　　按照俺先前的习惯，会把接下来的内容拆成几个帖子来写&hellip;&hellip; 为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：</p>
+
+<p>1. <a href="https://program-think.blogspot.com/2009/08/why-choose-python-1-script.html">作为脚本语言的 Python</a></p>
+
+<p>2. <a href="https://program-think.blogspot.com/2009/08/why-choose-python-2-dynamic.html">作为动态语言的 Python</a><br />
+3. <a href="https://program-think.blogspot.com/2010/08/why-choose-python-3-oop.html">作为面向对象语言的 Python</a><br />
+4. <a href="https://program-think.blogspot.com/2012/02/why-choose-python-4-fp.html">作为函数式编程语言的 Python</a><br />
+5. <a href="https://program-think.blogspot.com/2013/02/why-choose-python-5-tools.html">作为瑞士军刀的 Python——顺便分享俺整理的 Python 开源库</a> 6. （未完待续）</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p>《<a href="https://program-think.blogspot.com/2012/05/weekly-share-5.html">每周转载：IT 大牛谈编程语言（网文3篇）</a>》<br />
+《<a href="https://program-think.blogspot.com/2009/01/0.html">如何成为优秀开发人员</a>》（系列）</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

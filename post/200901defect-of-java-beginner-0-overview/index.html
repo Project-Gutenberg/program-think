@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" Java 新手的通病[0]&amp;#65306;概述 | 编程随想镜像站 " />
+    <meta name="og:description" content="其实很早以前就想写这样一个文章，可惜当时俺还没有开 Blog，所以到现在才写下来。最近几年，随着 Java 在 Web 应用和企业应用两个方面的普及，对 Java 程序员的需求量大增。因此Java程序员的数量也突然猛增（从TIOBE 的排行榜可以看出来）。这虽然对 Java 社区来说是好事，但也暴露出一些问题。一方面由于大量的开发人员进入 Java 这个领域，相应的教学、培训跟不上；另一方面，很多进入 Java 领域的开发人员都比较浮躁，寄希望于&rdquo;速成&rdquo;，没有耐心练好基本功。 根据最近几年我面试 Java 程序员的经历以及对周围使用 Java 的同事的观察，我总结了一些共通的问题以及相应的解决方法。如果你是一个 Java 新手（刚学会 Java 不久，工作1-2年），你可以看看我说的通病是不是你也有，如果有的话，得赶紧补救一下了！
+　接下来先说说第一个通病：对算法和数据结构不熟悉。
+为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：
+1. 对算法和数据结构不熟悉
+2. 缺乏面向对象的基本功
+3. 缺少良好的编程习惯
+4. 异常处理使用不当
+5. 对虚拟机（JVM）了解不足
+俺博客上，和本文相关的帖子（需翻墙）：
+《每周转载：IT 大牛谈编程语言（网文3篇）》
+《如何成为优秀开发人员》（系列）" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=Java 新手的通病[0]&amp;#65306;概述" />
+    <title> Java 新手的通病[0]&amp;#65306;概述 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    Java 新手的通病[0]&amp;#65306;概述
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　其实很早以前就想写这样一个文章，可惜当时俺还没有开 Blog，所以到现在才写下来。最近几年，随着 Java 在 Web 应用和企业应用两个方面的普及，对 Java 程序员的需求量大增。因此Java程序员的数量也突然猛增（从<a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">TIOBE 的排行榜</a>可以看出来）。这虽然对 Java 社区来说是好事，但也暴露出一些问题。一方面由于大量的开发人员进入 Java 这个领域，相应的教学、培训跟不上；另一方面，很多进入 Java 领域的开发人员都比较浮躁，寄希望于&rdquo;速成&rdquo;，没有耐心练好基本功。 　　根据最近几年我面试 Java 程序员的经历以及对周围使用 Java 的同事的观察，我总结了一些共通的问题以及相应的解决方法。如果你是一个 Java 新手（刚学会 Java 不久，工作1-2年），你可以看看我说的通病是不是你也有，如果有的话，得赶紧补救一下了！</p>
+
+<p>　　接下来先说说第一个通病：<a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-1-algorithm.html">对算法和数据结构不熟悉</a>。</p>
+
+<p>为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：</p>
+
+<p>1. <a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-1-algorithm.html">对算法和数据结构不熟悉</a></p>
+
+<p>2. <a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-2-oo.html">缺乏面向对象的基本功</a><br />
+3. <a href="https://program-think.blogspot.com/2009/02/defect-of-java-beginner-3-code-style.html">缺少良好的编程习惯</a><br />
+4. <a href="https://program-think.blogspot.com/2009/02/defect-of-java-beginner-4-exception.html">异常处理使用不当</a><br />
+5. <a href="https://program-think.blogspot.com/2009/05/defect-of-java-beginner-5-jvm.html">对虚拟机（JVM）了解不足</a></p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p>《<a href="https://program-think.blogspot.com/2012/05/weekly-share-5.html">每周转载：IT 大牛谈编程语言（网文3篇）</a>》<br />
+《<a href="https://program-think.blogspot.com/2009/01/0.html">如何成为优秀开发人员</a>》（系列）</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

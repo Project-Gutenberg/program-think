@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 软件工程进阶之每日构建[1]&amp;#65306;好处和优点 | 编程随想镜像站 " />
+    <meta name="og:description" content="上一个帖子《软件工程进阶之每日构建[0]：概述》提到说每日构建是一种很牛X的软件工程手段。本帖子就来说说它到底有多牛X。为了加深大伙儿的印象，俺先来说一些陈年往事。 话说上世纪末，俺还在一家小公司干活，并参与开发了一个 C&#43;&#43; 项目。当时公司的流程是： 开发人员写好代码，自己编译好，丢给测试人员测试； 测试人员如果发现bug，口头通知开发人员改； 开发人员改好 bug，再丢给测试人员测试 &hellip;&hellip; 有一天，开发组的小头目找来程序员甲。
+ &gt;&gt;小头目：你负责的 XX 功能完成了没有？ &gt;&gt;程序员甲：早做完啦！ &gt;&gt;小头目：那测试人员乙怎么说一直没看到 XX 功能？
+&gt;&gt;程序员甲：不会吧！我去瞧瞧。
+ 若干分钟后，程序员甲回来。
+ &gt;&gt;程序员甲：不好意思，编译好的 EXE 我只发给了测试人员丙，忘记发给测试人员乙了。
+&gt;&gt;小头目：!@#$%^&amp;*（此处省略15字）
+ 　另一天刚上班。
+ &gt;&gt;测试人员甲：今天开发提交的 XX.EXE 怎么一运行就崩溃？ &gt;&gt;测试人员乙：有吗？我这儿好好的呀！
+&gt;&gt;测试人员甲：真见鬼！我找开发问一下。
+ 　经过若干分钟打听，知道 XX.EXE 是程序员丙负责，于是找来程序员丙。
+ &gt;&gt;测试人员甲：为啥你做的 XX.EXE 一运行就崩溃？
+&gt;&gt;程序员丙：有这回事？！让我看看你的环境。
+ 　程序员丙在测试人员甲的机器上研究了 N 刻钟后。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=软件工程进阶之每日构建[1]&amp;#65306;好处和优点" />
+    <title> 软件工程进阶之每日构建[1]&amp;#65306;好处和优点 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    软件工程进阶之每日构建[1]&amp;#65306;好处和优点
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　上一个帖子《<a href="http://program-think.blogspot.com/2009/02/daily-build-0-overview.html">软件工程进阶之每日构建[0]：概述</a>》提到说每日构建是一种很牛X的软件工程手段。本帖子就来说说它到底有多牛X。为了加深大伙儿的印象，俺先来说一些陈年往事。 　　话说上世纪末，俺还在一家小公司干活，并参与开发了一个 C++ 项目。当时公司的流程是： 开发人员写好代码，自己编译好，丢给测试人员测试； 测试人员如果发现bug，口头通知开发人员改； 开发人员改好 bug，再丢给测试人员测试 &hellip;&hellip; 　　有一天，开发组的小头目找来程序员甲。</p>
+
+<blockquote>
+<p>&gt;&gt;小头目：你负责的 XX 功能完成了没有？ &gt;&gt;程序员甲：早做完啦！ &gt;&gt;小头目：那测试人员乙怎么说一直没看到 XX 功能？</p>
+
+<p>&gt;&gt;程序员甲：不会吧！我去瞧瞧。</p>
+</blockquote>
+
+<p>若干分钟后，程序员甲回来。</p>
+
+<blockquote>
+<p>&gt;&gt;程序员甲：不好意思，编译好的 EXE 我只发给了测试人员丙，忘记发给测试人员乙了。<br />
+&gt;&gt;小头目：!@#$%^&amp;*（此处省略15字）</p>
+</blockquote>
+
+<p>　　另一天刚上班。</p>
+
+<blockquote>
+<p>&gt;&gt;测试人员甲：今天开发提交的 XX.EXE 怎么一运行就崩溃？ &gt;&gt;测试人员乙：有吗？我这儿好好的呀！</p>
+
+<p>&gt;&gt;测试人员甲：真见鬼！我找开发问一下。</p>
+</blockquote>
+
+<p>　　经过若干分钟打听，知道 XX.EXE 是程序员丙负责，于是找来程序员丙。</p>
+
+<blockquote>
+<p>&gt;&gt;测试人员甲：为啥你做的 XX.EXE 一运行就崩溃？<br />
+&gt;&gt;程序员丙：有这回事？！让我看看你的环境。</p>
+</blockquote>
+
+<p>　　程序员丙在测试人员甲的机器上研究了 N 刻钟后。</p>
+
+<blockquote>
+<p>&gt;&gt;程序员丙：你是猪脑啊，你没有更新 XXX.DLL，害我浪费这么长时间！<br />
+&gt;&gt;测试人员甲：你才是猪脑！我怎么知道 XX.EXE 会用到 XXX.DLL？</p>
+</blockquote>
+
+<p>　　然后两人开始对骂&hellip;&hellip; 　　项目交付日期临近了，开发人员都在忙着改 bug，测试人员都在忙着复测 bug，没有人手准备安装包。于是，安装包的制作一直拖到项目交付的前一天才开始搞。 　　制作安装包本身倒是很快，半天就搞定。但是&hellip;&hellip;</p>
+
+<blockquote>
+<p>&gt;&gt;小头目：做好的安装包应该没什么问题吧？ &gt;&gt;测试人员丙：呃，这个，这个&hellip;&hellip;好像装出来的软件有问题，一运行直接崩溃了。</p>
+
+<p>&gt;&gt;小头目：额滴神啊！还愣着干嘛，快去查原因！！！今天不搞定大家不许回家！！！</p>
+</blockquote>
+
+<p>　　然后开发和测试通力协作，经过艰苦卓绝的努力，到了午夜时分，终于发现：有个 DLL 竟然是 Debug 版本！ 　　有同学可能会问：为啥平时测试的时候没发现这个问题捏？ 　　因为平时团队里面都使用 Debug 版本，方便用 ASSERT 断言。到了作安装包那天，照道理应该统一编译 Release 版本，但是有个家伙遗漏了，所以混了一个 Debug 版本的 DLL 在里面。等安装完运行程序时，该 DLL 动态加载失败，所以程序就崩溃鸟。 　　俺上面说的这些情形，到今天为止，还在很多公司内部上演。那为啥每日构建能搞定上面这些问题捏？且听俺细细道来： 　　对于每日构建的流程，开发人员只要负责提交代码到代码库中，【不】需要挨个给测试人员提供编译后的二进制文件。 　　因此“弊端1”的问题（提交给测试的文件有遗漏）就迎刃而解了。 　　在开发阶段，由于测试拿到的程序都是自动编译出来的，因此保证了所有测试人员拿到的是【统一的】运行程序，并且这个程序和代码库中最新的代码是相对应的。 　　在测试阶段，每一个开发人员修复了 Bug 之后，都必须把改过的代码提交到代码库；然后通过“自动编译”，修复了 Bug 的二进制软件包才会到测试人员手中。如果某个开发人员改了 Bug 但是没有提交代码，那么在测试人员看来，相当于他的 Bug 一直没有改，因此他的 Bug 就一直不会被关闭。 　　所以“弊端2”的情况也不会出现。 　　对于每日构建来说，每天都会生成安装包（或者“安装光盘的ISO镜像”）。也就是说，从项目开始开发的那天起，每天都在进行集成（这就是传说中的【持续集成】）。因此，集成的问题，在一开始就会暴露出来，而不用等到项目后期。 　　其实每日构建的好处除了上述三点（这三点俺认为比较重要），还有其它很多，大伙儿可以自己再琢磨一下。</p>
+
+<p>　　<a href="https://program-think.blogspot.com/2009/02/daily-build-2-prepare.html">后面一个帖子</a>，俺把每日构建需要的准备工作介绍一下。</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

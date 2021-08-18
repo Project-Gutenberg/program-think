@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" GitHub 通告&amp;#65306;整理了一个 C 和 C&#43;&#43; 开源库的清单&amp;#65288;含示例代码&amp;#65289; | 编程随想镜像站 " />
+    <meta name="og:description" content="好几年没聊编程的话题了。这次为啥想到去整理这个捏？
+　前些年，俺写了一个系列《为啥俺推荐 Python？》，其中一篇《作为瑞士军刀的 Python》介绍了 Python 功能的强大——主要是因为 Python 的开源库非常多，领域非常广。为了增加说服力，俺在 Google Code 上写了一个 wiki 页面，列出了各个领域中，基于 Python 开发的开源代码库。
+　当年在整理 Python 开源库清单的时候，俺就想：把 Python 的弄完，再整理个 C/C&#43;&#43; 的开源库清单。结果捏，一晃几年过去了，这事儿给抛到脑后。 今年 Google Code 要关闭了。前几天，俺把原先那个 Python 开源库的 wiki 页面迁移到 GitHub，然后又想起当年的计划。所以就借着端午节假期，开始折腾。本来计划星期二弄完，结果拖了3天。（不得不说，C 和 C&#43;&#43; 的开源库实在太多了，耗时大大超出预期）
+俺在 GitHub 上新建了一个项目叫“opensource”，C/C&#43;&#43; 和 Python 的开源库清单都在里面（你点开该项目，就会看到相应的链接）。 这次整理的“C/C&#43;&#43; 开源库清单”，比 Python 的清单长很多（目前分了17个大类）。 对每个项目都列出官网的链接。有维基词条的，列出维基词条。然后再附上俺简单的点评。有一部分项目，俺附上了示例代码。如果你是个程序员，通过看示例代码，有助于你了解该项目 API 的风格。 虽然 C 和 C&#43;&#43; 的项目都有，但是这个清单更加适合 C&#43;&#43; 程序员。因为 C&#43;&#43; 程序员可以调用 C 的库，而 C 程序员无法调用 C&#43;&#43; 的库。 因为时间仓促，错漏之处难免。如果你发现清单中的错漏之处，欢迎反馈；如果有啥建议/意见，也欢迎反馈。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=GitHub 通告&amp;#65306;整理了一个 C 和 C&#43;&#43; 开源库的清单&amp;#65288;含示例代码&amp;#65289;" />
+    <title> GitHub 通告&amp;#65306;整理了一个 C 和 C&#43;&#43; 开源库的清单&amp;#65288;含示例代码&amp;#65289; | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    GitHub 通告&amp;#65306;整理了一个 C 和 C&#43;&#43; 开源库的清单&amp;#65288;含示例代码&amp;#65289;
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　好几年没聊编程的话题了。这次为啥想到去整理这个捏？</p>
+
+<p>　　前些年，俺写了一个系列《<a href="http://program-think.blogspot.de/2009/08/why-choose-python-0-overview.html">为啥俺推荐 Python？</a>》，其中一篇《<a href="http://program-think.blogspot.com/2013/02/why-choose-python-5-tools.html">作为瑞士军刀的 Python</a>》介绍了 Python 功能的强大——主要是因为 Python 的开源库非常多，领域非常广。为了增加说服力，俺在 Google Code 上写了一个 wiki 页面，列出了各个领域中，基于 Python 开发的开源代码库。</p>
+
+<p>　　当年在整理 Python 开源库清单的时候，俺就想：把 Python 的弄完，再整理个 C/C++ 的开源库清单。结果捏，一晃几年过去了，这事儿给抛到脑后。 　　今年 Google Code 要关闭了。前几天，俺把原先那个 Python 开源库的 wiki 页面迁移到 GitHub，然后又想起当年的计划。所以就借着端午节假期，开始折腾。本来计划星期二弄完，结果拖了3天。（不得不说，C 和 C++ 的开源库实在太多了，耗时大大超出预期）<br />
+　　俺在 GitHub 上新建了一个项目叫“<a href="https://github.com/programthink/opensource">opensource</a>”，C/C++ 和 Python 的开源库清单都在里面（你点开该项目，就会看到相应的链接）。 　　这次整理的“C/C++ 开源库清单”，比 Python 的清单长很多（目前分了17个大类）。 　　对每个项目都列出官网的链接。有维基词条的，列出维基词条。然后再附上俺简单的点评。有一部分项目，俺附上了示例代码。如果你是个程序员，通过看示例代码，有助于你了解该项目 API 的风格。 　　虽然 C 和 C++ 的项目都有，但是这个清单更加适合 C++ 程序员。因为 C++ 程序员可以调用 C 的库，而 C 程序员无法调用 C++ 的库。 　　因为时间仓促，错漏之处难免。如果你发现清单中的错漏之处，欢迎反馈；如果有啥建议/意见，也欢迎反馈。</p>
+
+<p>　　有 GitHub 帐号的同学，可以去“<a href="https://github.com/programthink/opensource/issues">这里</a>”发一个 issue；没有帐号的，可以到本文下方留言。</p>
+
+<p>　　俺计划在“<a href="https://github.com/programthink/opensource">opensource</a> 项目”里面再放一个目录，介绍开源的、靠谱的常用软件。等弄完之后，另发篇博文通告一下。<br />
+　　对于那些关注安全性（尤其是隐私保护）的网友，多了解一些靠谱的开源软件，好处大大滴（具体的理由参见《<a href="http://program-think.blogspot.com/2013/06/privacy-protection-0.html">如何保护隐私</a>》系列的第1篇） 　　目前已经有了 C、C++、Python，有空的话，俺再整理一下 Java 的开源库。至于其它编程语言，如果有很多人提出需求，俺也可以考虑。</p>
+
+<p><strong>俺博客上，和本文相关的帖子（需翻墙）</strong>：</p>
+
+<p><a href="http://program-think.blogspot.com/2009/02/how-to-choose-opensource-project.html">如何选择开源项目</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

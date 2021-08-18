@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" Java 新手的通病[2]&amp;#65306;缺乏面向对象的基本功 | 编程随想镜像站 " />
+    <meta name="og:description" content="按理说 Java 是一个很 OO 的语言，Java 社区也一向是充满了“对象”的氛围。但俺在面试 Java 程序员时，却屡屡碰到令人大跌眼镜的事情。俺碰到不止一个求职者，连什么是“多态”都讲不清楚。很多人号称用过设计模式，但一半以上都仅限于单键模式和抽象工厂模式。当我深入问他/她抽象工厂模式到底有什么好处时，很多人语焉不详。 为什么很多 Java 程序员会缺乏面向对象基本功？这得怪那些 Java 框架。现在 Java 的各种框架太发达、太傻瓜化了，导致很多程序员只需要按部就班、照着框架进行代码填空，基本已经丧失了 OOA 和 OOD 的能力。我手下有些个 Java 程序员，对 Spring、Hibernate 等框架了如指掌；但如果给他一个简单需求，让他写一个脱离 Web 框架的独立 Application，他就不知所措了。这样的开发人员，将来只能成为所谓的“软件蓝领”，岗位很难得到提升。
+　同上一个帖子一样，我这次也提如下几个问题：
+★基于接口的继承和基于实现的继承各有什么优缺点？ ★继承（包括 extend 和 implement）有什么【缺点】？ ★多态（polymorphism）有什么【缺点】？ ★为什么 Java 可以多继承 interface，而不可以多继承 class？ ★假如让你写一个小游戏（比如人机对战的五子棋），你会如何设计类结构？ ★类结构设计时，如何考虑可扩展性？
+　如果上述这些问题你都能够搞得比较清楚，说明你的 OO 基础还过得去。否则的话，我建议你一边找些 OOAD 和设计模式的书看看，同时自己动手写些简单的小程序（不依赖那些框架），把学到的模式理论结合到实践中。通过这种方式来提高自己 OOAD 的能力，效果会比较好。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=Java 新手的通病[2]&amp;#65306;缺乏面向对象的基本功" />
+    <title> Java 新手的通病[2]&amp;#65306;缺乏面向对象的基本功 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    Java 新手的通病[2]&amp;#65306;缺乏面向对象的基本功
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　按理说 Java 是一个很 OO 的语言，Java 社区也一向是充满了“对象”的氛围。但俺在面试 Java 程序员时，却屡屡碰到令人大跌眼镜的事情。俺碰到不止一个求职者，连什么是“多态”都讲不清楚。很多人号称用过设计模式，但一半以上都仅限于单键模式和抽象工厂模式。当我深入问他/她抽象工厂模式到底有什么好处时，很多人语焉不详。 　　为什么很多 Java 程序员会缺乏面向对象基本功？这得怪那些 Java 框架。现在 Java 的各种框架太发达、太傻瓜化了，导致很多程序员只需要按部就班、照着框架进行代码填空，基本已经丧失了 OOA 和 OOD 的能力。我手下有些个 Java 程序员，对 Spring、Hibernate 等框架了如指掌；但如果给他一个简单需求，让他写一个脱离 Web 框架的独立 Application，他就不知所措了。这样的开发人员，将来只能成为所谓的“软件蓝领”，岗位很难得到提升。</p>
+
+<p>　　同<a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-1-algorithm.html">上一个帖子</a>一样，我这次也提如下几个问题：</p>
+
+<p>★基于接口的继承和基于实现的继承各有什么优缺点？ ★继承（包括 extend 和 implement）有什么【缺点】？ ★多态（polymorphism）有什么【缺点】？ ★为什么 Java 可以多继承 interface，而不可以多继承 class？ ★假如让你写一个小游戏（比如人机对战的五子棋），你会如何设计类结构？ ★类结构设计时，如何考虑可扩展性？</p>
+
+<p>　　如果上述这些问题你都能够搞得比较清楚，说明你的 OO 基础还过得去。否则的话，我建议你一边找些 <a href="https://en.wikipedia.org/wiki/Object-oriented_analysis_and_design">OOAD</a> 和设计模式的书看看，同时自己动手写些简单的小程序（不依赖那些框架），把学到的模式理论结合到实践中。通过这种方式来提高自己 OOAD 的能力，效果会比较好。</p>
+
+<p>　　后面来聊一下第3个通病：<a href="https://program-think.blogspot.com/2009/02/defect-of-java-beginner-3-code-style.html">缺少良好的编程习惯</a>。</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

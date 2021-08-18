@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" C&#43;&#43; 的可移植性和跨平台开发[2]&amp;#65306;语法 | 编程随想镜像站 " />
+    <meta name="og:description" content="目前还有相当一部分开发人员在使用老式编译器干活，这些老式编译器可能对C&#43;&#43;98支持不够。因此，当你的代码移植到这些老式的编译器上时，可能会碰到一些稀奇古怪的问题（包括编译出错和运行时错误）。下面这些注意事项有助于你绕过这些问题。
+强调一下，后面提到的好几个条款都是通过回避C&#43;&#43;的新语法来保证移植性。如果你用的是新式编译器，那么你可以不理会这些条款。 在 C&#43;&#43; 98 标准中，for 循环变量的作用域局限在循环体内。但某些老的编译器（例如Visual C&#43;&#43; 6）认为 for 循环变量的作用域在循环体外。所以如下的代码可能导致移植问题。
+{ for(int i\=0; i&lt;XX; i&#43;&#43;) { // &hellip; } for(int i\=0; i&lt;XXX; i&#43;&#43;) { // &hellip; } }
+　建议修改为【不同的】循环变量名，如下所示：
+{ for(int i\=0; i&lt;XX; i&#43;&#43;) { // &hellip; } for(int j\=0; j&lt;XXX; j&#43;&#43;) { // &hellip; } }" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=C&#43;&#43; 的可移植性和跨平台开发[2]&amp;#65306;语法" />
+    <title> C&#43;&#43; 的可移植性和跨平台开发[2]&amp;#65306;语法 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    C&#43;&#43; 的可移植性和跨平台开发[2]&amp;#65306;语法
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　目前还有相当一部分开发人员在使用老式编译器干活，这些老式编译器可能对C++98支持不够。因此，当你的代码移植到这些老式的编译器上时，可能会碰到一些稀奇古怪的问题（包括编译出错和运行时错误）。下面这些注意事项有助于你绕过这些问题。<br />
+强调一下，后面提到的好几个条款都是通过回避C++的新语法来保证移植性。如果你用的是新式编译器，那么你可以不理会这些条款。 　　在 C++ 98 标准中，for 循环变量的作用域局限在循环体内。但某些老的编译器（例如Visual C++ 6）认为 for 循环变量的作用域在循环体外。所以如下的代码可能导致移植问题。</p>
+
+<p>{ for(int i\=0; i&lt;XX; i++) { // &hellip; } for(int i\=0; i&lt;XXX; i++) { // &hellip; }
+}</p>
+
+<p>　　建议修改为【不同的】循环变量名，如下所示：</p>
+
+<p>{ for(int i\=0; i&lt;XX; i++) { // &hellip; } for(int j\=0; j&lt;XXX; j++) { // &hellip; }
+}</p>
+
+<p>　　全局类对象的构造函数先于 main() 函数执行，如果某个模块中同时包含若干个全局类对象，则它们的构造函数的调用顺序是【不确定】的。而单键是在第一次调用时被初始化，能避免此问题。另外，单键虽然解决了构造问题，但是析构依然有隐患。更多介绍请看《<a href="https://program-think.blogspot.com/2009/02/cxx-object-destroy-overview.html">C++ 对象是怎么死的？</a>》系列博文。 　　【不要】在 inline 函数内部使用局部静态变量，【不要】在 inline 函数使用可变参数。 　　因为这些做法有可能导致可移植性的问题。 　　C++ 标准【没有】明确规定函数参数的求值顺序。因此，如下的代码行为是不确定的。</p>
+
+<p>void Foo(int a, int b);
+int n \= 1;
+foo(++n, ++n);</p>
+
+<p>　　某些【老式】编译器对“模板偏特化”或“模板全特化”支持不够。 　　举例：VC6 不支持“模板偏特化”。 　　为了直观，给出如下例子：</p>
+
+<p>template <typename T\>
+class TBase
+{
+protected: typedef std::vector<T\> Container; Container m_container;
+}; template <typename T\>
+class TDerived : public TBase<T\>
+{ typedef TBase<T\> BaseClass; public: void Func() { typename BaseClass::Container foo; // 可移植 Container foo; // 【不】可移植 this-&gt;m_container.clear(); // 可移植 m_container.clear(); // 【不】可移植 }
+};</p>
+
+<p>　　（先声明一下，俺这里说的 RTTI 主要是指 typeid 操作符和 type_info 类型） 　　首先，由于某些老式编译器可能不支持 typeid 操作符和 type_info 类型，会导致移植性的问题，这是慎用 RTTI 的一个原因。（如果你用的是新式编译器，不用考虑这个因素） 　　其次，由于标准对于 type_info 类型的约束比较简单。这导致了不同的编译器对 type_info 的实现有较大差异。如果你确实要使用 type_info 类型，建议仅仅使用它的 operator== 和 operator!= 这两个成员函数（只有这两个函数是明确定义的）</p>
+
+<p>　　所以，如果你确实需要在运行时确定类型，又不想碰到上述问题，可以考虑在自己的类体系中加入类型信息来实现。例如：MFC 和 <a href="http://www.wxwidgets.org/">wxWidgets</a> 都是这么干的。</p>
+
+<p>　　如果在内部类访问外部类的非公有成员，要把内部类声明为外部类的friend。 　　如下代码存在移植问题。</p>
+
+<p>class COuter
+{
+private: char* m_name; public: class CInner { void Print(COuter* outer) { cout &lt;&lt; outer-&gt;m_name; } };
+};</p>
+
+<p>应该改为如下代码：</p>
+
+<p>class COuter
+{
+private: char* m_name; public: class CInner; // 前置声明 friend class CInner; class CInner { void Print(COuter* outer) { cout &lt;&lt; outer-&gt;m_name; } };
+};</p>
+
+<p>　　先看如下代码：</p>
+
+<p>void Foo(short n)
+{ // &hellip;.
+} void Foo(long n);
+{ // &hellip;.
+} Foo(0); // 会导致二义性错误</p>
+
+<p>　　假如没有出现最后一行的那个调用，光编译前面两个重载的 Foo 函数是【不会】出错的。这反而增加了该问题的隐蔽性。 　　下面俺来解释一下： 　　万一这两个 Foo 函数存在于某个公共函数库中，编译这个库都很正常。但是使用这个库的某个程序调用了 Foo(0); 结果就编译失败了。 　　某些标准类型（例如 int、wchar_t）的字长会随着具体的平台而改变。 　　某些【老式】的编译器不支持类的静态成员常量，可以用枚举来代替。</p>
+
+<p>class CFoo
+{ static const int MIN \= 0; // 【不】可移植 enum { MAX \= 64 }; // 可移植
+};</p>
+
+<p>　　今天说了这么一大堆，都比较琐碎，估计会有遗漏的。日后如果大伙儿发现有补充的，欢迎在本帖的评论中指教一二。</p>
+
+<p>　　由于篇幅有限，和异常相关的内容留到<a href="https://program-think.blogspot.com/2009/01/cxx-cross-platform-develop-3-exception.html">下一个话题</a>来聊。</p>
+
+<p><a href="https://program-think.blogspot.com/2009/01/cxx-cross-platform-develop-0-overview.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

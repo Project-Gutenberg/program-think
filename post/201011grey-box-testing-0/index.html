@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 如何开展灰盒测试[0]&amp;#65306;概述 | 编程随想镜像站 " />
+    <meta name="og:description" content="最近连写了好几个政治帖，貌似博客里的技术内容有点荒废了。前不久和某网友聊到测试工作改进的事情，发觉本博客之前还没聊过测试相关的内容。所以捏，今天就来谈谈测试的话题。列位看官如果不是搞软件开发这行的，可以飘过。
+之所以先谈“灰盒测试”这个话题，主要是想分享一下俺这几年在研发管理过程中，推行灰盒测试的经验。
+为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：
+1. 灰盒测试的优缺点分析
+2. 管理方面的准备工作
+3. 模块接口类型概述
+4. 接口测试实战——测试跨主机的模块接口 5. 接口测试实战——测试主机内跨进程的模块接口
+6. 接口测试实战——测试进程内的模块接口" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=如何开展灰盒测试[0]&amp;#65306;概述" />
+    <title> 如何开展灰盒测试[0]&amp;#65306;概述 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    如何开展灰盒测试[0]&amp;#65306;概述
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　最近连写了好几个政治帖，貌似博客里的技术内容有点荒废了。前不久和某网友聊到测试工作改进的事情，发觉本博客之前还没聊过测试相关的内容。所以捏，今天就来谈谈测试的话题。列位看官如果不是搞软件开发这行的，可以飘过。<br />
+　　之所以先谈“灰盒测试”这个话题，主要是想分享一下俺这几年在研发管理过程中，推行灰盒测试的经验。<br />
+为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：</p>
+
+<p>1. <a href="https://program-think.blogspot.com/2010/11/grey-box-testing-1.html">灰盒测试的优缺点分析</a></p>
+
+<p>2. <a href="https://program-think.blogspot.com/2010/12/grey-box-testing-2.html">管理方面的准备工作</a><br />
+3. <a href="https://program-think.blogspot.com/2010/12/grey-box-testing-3.html">模块接口类型概述</a><br />
+4. <a href="https://program-think.blogspot.com/2010/12/grey-box-testing-4.html">接口测试实战——测试跨主机的模块接口</a> 5. 接口测试实战——测试主机内跨进程的模块接口</p>
+
+<p>6. 接口测试实战——测试进程内的模块接口</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

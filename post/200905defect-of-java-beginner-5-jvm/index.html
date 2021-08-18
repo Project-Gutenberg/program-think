@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" Java 新手的通病[5]&amp;#65306;不了解 JVM | 编程随想镜像站 " />
+    <meta name="og:description" content="上次的帖子讨论了Java异常机制的几种误用，今天咱们来说说 JVM（以及 Java 编译器）相关的话题。为啥要聊 JVM 捏？因为有很多 Java 程序员，由于对 JVM 缺乏了解，在碰到某些技术问题时无从下手；另外，由于缺乏对 JVM 的了解，可能导致写出来的代码性能巨差或者有严重的 Bug。所以俺在之前的帖子“学习技术的三部曲：WHAT、HOW、WHY”中，强调了掌握内部机制的重要性。对于一个 Java 程序员来说，你不一定要非常清楚 JVM 的细节，但是对于一些关键的运作机制，还是要掌握大致的概念。
+按照本系列的惯例，俺会问几个和 JVM 相关的问题，你如果对这些问题不是很明白，那得考虑花点时间去了解一下了。另外，鉴于有网友批评“本系列”帖子：光诊断毛病，不开出药方。（说得很形象，也很中肯）俺会针对下面提出的问题，写一些帖子来解答。 很多新手不理解Java的基本类型和引用类型在本质上有什么区别。请看如下的问题： ◇这两种类型在内存存储上有什么区别？ ◇这两种类型在性能上有什么区别？ ◇这两种类型对于 GC 有什么区别？
+　关于前两个问题，请看之前的帖子“Java性能优化[1]：基本类型 vs 引用类型”。
+　很多新手不理解 GC 的实现机制。请看如下的问题： ◇GC 是如何判断哪些对象已经失效？ ◇GC 对性能会有哪些影响？ ◇如何通过 JVM 的参数调优 GC 的性能？
+　关于 GC 的问题，可以参见之前的帖子“Java性能优化[3]：关于垃圾回收（GC）”。
+　对于 Java 提供的 String 和 StringBuilder，想必很多人都知道：String 用于常量字符串，StringBuilder 用于可变字符串。那 Java 当初为什么要这样设计捏？为啥不用一个类来统一搞定捏？ 从 JDK 1." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=Java 新手的通病[5]&amp;#65306;不了解 JVM" />
+    <title> Java 新手的通病[5]&amp;#65306;不了解 JVM | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    Java 新手的通病[5]&amp;#65306;不了解 JVM
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　<a href="https://program-think.blogspot.com/2009/02/defect-of-java-beginner-4-exception.html">上次的帖子</a>讨论了Java异常机制的几种误用，今天咱们来说说 JVM（以及 Java 编译器）相关的话题。为啥要聊 JVM 捏？因为有很多 Java 程序员，由于对 JVM 缺乏了解，在碰到某些技术问题时无从下手；另外，由于缺乏对 JVM 的了解，可能导致写出来的代码性能巨差或者有严重的 Bug。所以俺在之前的帖子“<a href="https://program-think.blogspot.com/2009/02/study-technology-in-three-steps.html">学习技术的三部曲：WHAT、HOW、WHY</a>”中，强调了掌握内部机制的重要性。对于一个 Java 程序员来说，你不一定要非常清楚 JVM 的细节，但是对于一些关键的运作机制，还是要掌握大致的概念。<br />
+　　按照本系列的惯例，俺会问几个和 JVM 相关的问题，你如果对这些问题不是很明白，那得考虑花点时间去了解一下了。另外，鉴于有网友批评“<a href="https://program-think.blogspot.com/2009/01/defect-of-java-beginner-0-overview.html">本系列</a>”帖子：光诊断毛病，不开出药方。（说得很形象，也很中肯）俺会针对下面提出的问题，写一些帖子来解答。 很多新手不理解Java的基本类型和引用类型在本质上有什么区别。请看如下的问题： ◇这两种类型在内存存储上有什么区别？ ◇这两种类型在性能上有什么区别？ ◇这两种类型对于 GC 有什么区别？</p>
+
+<p>　　关于前两个问题，请看之前的帖子“<a href="https://program-think.blogspot.com/2009/03/java-performance-tuning-1-two-types.html">Java性能优化[1]：基本类型 vs 引用类型</a>”。</p>
+
+<p>　　很多新手不理解 GC 的实现机制。请看如下的问题： ◇GC 是如何判断哪些对象已经失效？ ◇GC 对性能会有哪些影响？ ◇如何通过 JVM 的参数调优 GC 的性能？</p>
+
+<p>　　关于 GC 的问题，可以参见之前的帖子“<a href="https://program-think.blogspot.com/2009/04/java-performance-tuning-3-gc.html">Java性能优化[3]：关于垃圾回收（GC）</a>”。</p>
+
+<p>　　对于 Java 提供的 String 和 StringBuilder，想必很多人都知道：String 用于常量字符串，StringBuilder 用于可变字符串。那 Java 当初为什么要这样设计捏？为啥不用一个类来统一搞定捏？ 　　从 JDK 1.5开始，Java 引入了一个重量级的语法：范型。不过捏，很多新手仅仅知道范型的皮毛，而对于很多本质的东东，不甚了解。 ◇GP 是在编译时实现的还是在运行时实现的？为什么要这么实现？ ◇GP 的类型擦除机制是咋回事？有啥优点/缺点？ ◇使用范型容器（相对于传统容器）在性能上有啥影响？为什么？ 　　另外，多线程也是大部分 Java 新手的短板。所以俺最后再来提几个关于多线程的问题。 ◇synchronized 关键字是怎么起作用滴？ ◇synchronized 的颗粒度（或者说作用域）如何？是针对某个类还是针对某个类对象实例？ ◇synchronized 对性能有没有影响？为什么？</p>
+
+<p>◇volatile 关键字又是派啥用滴？啥时候需要用这个关键字捏？</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 软件工程进阶之每日构建[4]&amp;#65306;相关工具介绍 | 编程随想镜像站 " />
+    <meta name="og:description" content="本来“每日构建系列”在介绍完流程之后就结束了。后来，陆续有同学在评论和邮件里咨询和每日构建相关的一些工具。所以俺就再增加点内容，介绍一下相关的工具。
+虽然在前面的帖子已经强调过，但俺还是要再啰嗦一下——搞好每日构建的关键是：“团队的管理和文化、团队成员的观念和意识”。缺乏这些关键点，再好的工具也成了摆设。
+在每日构建的过程中，涉及的工具主要有如下几类：源代码管理工具、编译工具、自动测试工具、构建/集成工具。健忘的同学可以再回顾一下“这篇”，算是复习。 下面针对每一类工具，分别介绍：
+1. 源代码管理工具
+2. 自动编译工具 3. 自动测试工具
+4. 构建/集成工具" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=软件工程进阶之每日构建[4]&amp;#65306;相关工具介绍" />
+    <title> 软件工程进阶之每日构建[4]&amp;#65306;相关工具介绍 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    软件工程进阶之每日构建[4]&amp;#65306;相关工具介绍
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　本来“<a href="https://program-think.blogspot.com/2009/02/daily-build-0-overview.html">每日构建系列</a>”在介绍完流程之后就结束了。后来，陆续有同学在评论和邮件里咨询和每日构建相关的一些工具。所以俺就再增加点内容，介绍一下相关的工具。<br />
+　　虽然在<a href="https://program-think.blogspot.com/2009/02/daily-build-2-prepare.html">前面的帖子</a>已经强调过，但俺还是要再啰嗦一下——搞好每日构建的关键是：“团队的管理和文化、团队成员的观念和意识”。缺乏这些关键点，再好的工具也成了摆设。<br />
+　　在每日构建的过程中，涉及的工具主要有如下几类：源代码管理工具、编译工具、自动测试工具、构建/集成工具。健忘的同学可以再回顾一下“<a href="https://program-think.blogspot.com/2009/02/daily-build-3-proces.html">这篇</a>”，算是复习。 　　下面针对每一类工具，分别介绍：</p>
+
+<p>1. <a href="https://program-think.blogspot.com/2009/06/opensource-review-revision-control.html">源代码管理工具</a></p>
+
+<p>2. 自动编译工具 3. 自动测试工具</p>
+
+<p>4. 构建/集成工具</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 如何开展灰盒测试[4]&amp;#65306;接口测试实战&amp;#8212;&amp;#8212;测试跨主机的模块接口 | 编程随想镜像站 " />
+    <meta name="og:description" content="跨主机的交互方式，必然涉及到网络（为了防止爱抬杠的同学挑刺，事先声明：本节提及的网络，均是基于 TCP/IP 网络）。在 TCP/IP 协议栈的4个层次中（参见这里），模块间的交互方式主要是位于上面两层（传输层、应用层）。 有些软件系统，直接采用某种现成的应用层协议（比如 HTTP）来进行跨主机的通讯。这时候，测试人员就只需关心该应用层协议，不用操心传输层是如何实现的。
+　还有一些软件系统，自己实现了某种专有的应用层协议。这种情况下，对测试人员的要求就比较高了——测试人员需要大致了解传输层的知识以及该专有应用协议的格式。（具体请看本帖的 Socket 这一节）
+　由于这几年 B/S 系统大行其道，而B/S系统，总是离不开HTTP协议，所以俺首先来介绍它。
+　在 B/S 系统中，服务端（也叫后端）总是会提供一些 Web 接口给客户端（前端）进行调用。这种调用总是基于 HTTP 协议来进行（HTTP 协议的介绍，请看维基百科的这里）。当你针对服务端进行灰盒测试，你需要模拟客户端的各种 HTTP 请求（既要包括合法的请求，也要包括各种非法的、无效的请求），然后再检验服务端返回的响应（Response）内容。如果响应内容不符合接口文档的约定，就表明该服务端模块出 Bug 了。
+　HTTP 请求（Request）的类型，常用的主要是 GET 和 POST。这两者的用途及区别，维基百科上已有，俺就不浪费口水了，直接说如何进行脚本编程。 在 Python 脚本中，内置了完善的模块（urllib 和 urllib2），以便于你操作 HTTP 协议。对于简单的使用，urllib 就足够了。 比如俺想用 GET 方式抓取 Google 的主页，只需如下3行代码：
+import urllib f = urllib." />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=如何开展灰盒测试[4]&amp;#65306;接口测试实战&amp;#8212;&amp;#8212;测试跨主机的模块接口" />
+    <title> 如何开展灰盒测试[4]&amp;#65306;接口测试实战&amp;#8212;&amp;#8212;测试跨主机的模块接口 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    如何开展灰盒测试[4]&amp;#65306;接口测试实战&amp;#8212;&amp;#8212;测试跨主机的模块接口
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　跨主机的交互方式，必然涉及到网络（为了防止爱抬杠的同学挑刺，事先声明：本节提及的网络，均是基于 TCP/IP 网络）。在 TCP/IP 协议栈的4个层次中（参见<a href="https://zh.wikipedia.org/wiki/TCP/IP%E5%8D%8F%E8%AE%AE">这里</a>），模块间的交互方式主要是位于上面两层（传输层、应用层）。 　　有些软件系统，直接采用某种现成的应用层协议（比如 HTTP）来进行跨主机的通讯。这时候，测试人员就只需关心该应用层协议，不用操心传输层是如何实现的。</p>
+
+<p>　　还有一些软件系统，自己实现了某种专有的应用层协议。这种情况下，对测试人员的要求就比较高了——测试人员需要大致了解传输层的知识以及该专有应用协议的格式。（具体请看本帖的 Socket 这一节）</p>
+
+<p>　　由于这几年 B/S 系统大行其道，而B/S系统，总是离不开HTTP协议，所以俺首先来介绍它。</p>
+
+<p>　　在 B/S 系统中，服务端（也叫后端）总是会提供一些 Web 接口给客户端（前端）进行调用。这种调用总是基于 HTTP 协议来进行（HTTP 协议的介绍，请看维基百科的<a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">这里</a>）。当你针对服务端进行灰盒测试，你需要模拟客户端的各种 HTTP 请求（既要包括合法的请求，也要包括各种非法的、无效的请求），然后再检验服务端返回的响应（Response）内容。如果响应内容不符合接口文档的约定，就表明该服务端模块出 Bug 了。</p>
+
+<p>　　HTTP 请求（Request）的类型，常用的主要是 GET 和 POST。这两者的用途及区别，维基百科上已有，俺就不浪费口水了，直接说如何进行脚本编程。 　　在 Python 脚本中，内置了完善的模块（urllib 和 urllib2），以便于你操作 HTTP 协议。对于简单的使用，urllib 就足够了。 　　比如俺想用 GET 方式抓取 Google 的主页，只需如下3行代码：</p>
+
+<p>import urllib
+f = urllib.urlopen(&ldquo;<a href="http://www.google.com/&quot;">http://www.google.com/&quot;</a>)
+print f.read()</p>
+
+<p>　　如果想往某个 Web 接口 POST 数据，并得到服务端的返回内容，只需再增加1行代码（构造 POST 参数）：</p>
+
+<p>import urllib
+params = urllib.urlencode({name1:value1, name2:value2})
+f = urllib.urlopen(&ldquo;<a href="http://xxxx/xxxx&quot;">http://xxxx/xxxx&quot;</a>, params)
+print f.read()</p>
+
+<p>　　如果需要一些复杂点的功能（比如 cookie；比如 proxy），urllib2 就可以派上用场了。更多的使用细节，请看洋文的官方文档（<a href="https://docs.python.org/2/library/urllib.html">这里</a>和<a href="https://docs.python.org/3/library/urllib.html">这里</a>）。<br />
+　　俺博客的老读者，或许记得俺在2009年初写过的一个帖子：《<a href="http://program-think.blogspot.com/2009/03/opensource-review-curl-library.html">开源点评：cURL——优秀的应用层网络协议库</a>》。看完这个帖子，你就能领会到：cURL 是一个非常牛X的网络协议库，支持很多种网络协议（显然也包括HTTP）。这么牛X的一个开源库，自然会有不少编程语言对其进行包裹。下面俺把其它脚本语言针对 cURL 的封装列举如下。如果你不喜欢用 Python，或许可以改用俺列举的其它脚本语言（以下列举的都是开源项目）。</p>
+
+<blockquote>
+<p>Python　<a href="http://pycurl.sourceforge.net/">pycurl</a><br />
+Ruby　　<a href="http://curb.rubyforge.org/">Curb</a><br />
+Perl　　<a href="http://search.cpan.org/%7Ecrisb/WWW-Curl/Easy.pm.in">WWW::Curl::Easy</a><br />
+dotNet　<a href="http://libcurl-net.sourceforge.net/">libcurl.NET</a></p>
+</blockquote>
+
+<p>　　在现有软件系统的开发过程中，操作数据库也属于家常便饭。因此，聊完 HTTP 协议之后，就得来聊一下数据库的操作。眼下，大部分程序员都是远程操作数据库，所以俺把数据库的操作也归入“跨主机”交互方式。（其实本节的内容也适用于操作本机数据库） 　　在很多软件系统中，软件模块需要从数据库中读取数据或者把自己生成的数据存储到数据库中。因此，测试人员需要通过一些测试脚本，在数据库中制造测试数据，以作为软件模块的输入；或者在软件模块把数据保存到数据库之后，验证其输出的数据是否符合接口文档的约定。 　　所谓的“跨数据库的接口”，顾名思义，就是这种编程接口可以支持多种数据库产品。如果你没有其它特殊的要求（比如性能），俺建议尽量用这种方式操作数据库。这样的好处是，万一哪天数据库平台换了，你的测试脚本可以不用大改（甚至不改）。</p>
+
+<p>　　<strong>1、ODBC</strong></p>
+
+<p>　　ODBC 是一种三跨（跨数据库、跨操作系统、跨编程语言）的数据库接口。大部分知名的数据库软件都支持ODBC方式访问。</p>
+
+<p>　　Python 社区提供了不止一个的 ODBC 编程库，可以考虑用<a href="https://github.com/mkleehammer/pyodbc">PyODBC</a>或<a href="http://ceodbc.sourceforge.net/">ceODBC</a>。</p>
+
+<p>　　<strong>2、JDBC</strong></p>
+
+<p>　　对于搞 Java 开发的同学，应该很熟悉 JDBC。不过很多人有一个【误解】，以为只有 Java 才可以进行 JDBC 编程。其实不然！自从前几年 JVM 开始效仿 DotNet，支持多种编程语言之后，很多脚本语言也可以在 JVM 上跑起来了。比如 Python（JVM 上叫 <a href="https://zh.wikipedia.org/wiki/Jython">Jython</a>）、Ruby（JVM 上叫 <a href="https://zh.wikipedia.org/wiki/JRuby">JRuby</a>）、<a href="https://zh.wikipedia.org/wiki/Groovy">Groovy</a>。 　　作为测试人员，你也可以利用上述脚本语言，编写基于JDBC的数据库测试脚本。</p>
+
+<p>　　<strong>3、ADO / ADO.Net</strong></p>
+
+<p>　　ADO / ADO.Net（以下简称ADO）是微软设计的跨数据库编程接口。既然是微软搞得，秉承其一贯风格，自然是不跨操作系统的。如果你所有的测试工作都在 Windows 平台上，也可以考虑用 ADO 来访问数据库。</p>
+
+<p>　　如果要用 Python 进行 ADO 编程，可以考虑用 PyWin32 开源项目（官网在“<a href="http://sourceforge.net/projects/pywin32/">这里</a>”）。它是专门针对 Windows 平台的 Python 扩展，让 Python 可以很方便地调用各种 Win32 的 API（包括ADO 的 API）。</p>
+
+<p>　　你还可以使用基于 dotNet 平台之上脚本语言。比如 <a href="https://zh.wikipedia.org/wiki/IronPython">IronPython</a>、<a href="https://zh.wikipedia.org/wiki/IronRuby">IronRuby</a>等。这些运行于 DotNet 之上的脚本语言，自然也就具有操作 ADO 的能力。 　　前面已经提到“跨数据库的接口”有种种好处，那啥时候需要用特定数据库的接口捏？有时候，你需要使用某个数据库专有的某个特色功能，这时候，通用的数据库接口可能就搞不定了，你就需要用该数据库特定的编程接口来写脚本。当然，这种情况不是很多见。 下面，俺把几种常见数据库及其对应的 Python 开源项目列在如下表格中。</p>
+
+<blockquote>
+<p>Oracle　　　　<a href="http://cx-oracle.sourceforge.net/">cx_Oracle</a><br />
+SQL Server　　<a href="http://pymssql.org/">pymssql</a><br />
+DB2　　　　　　<a href="http://sourceforge.net/projects/pydb2/">pydb2</a><br />
+MySQL　　　　　<a href="http://mysql-python.sourceforge.net/">MySQL-Python</a><br />
+PostgreSQL　　<a href="http://initd.org/psycopg/">psycopg2</a><br />
+SQLite　　　　<a href="https://docs.python.org/library/sqlite3.html">（Python 内置）</a></p>
+</blockquote>
+
+<p>　　刚才介绍了多个操作数据库的 Python 开源项目。俺顺便补充一下：Python 社区制定了一个<a href="https://www.python.org/dev/peps/pep-0249/">数据库操作的规范</a>。那些比较靠谱的数据库操作的模块，都会遵循该规范。因此，你只要熟悉了某一个模块，也就很容易熟悉其它模块。 　　网络文件系统存在的目的，就是把跨主机的文件操作，伪装成本机的文件操作。所以，对 NFS 的灰盒测试，放到后面的帖子（主机内的跨进程交互方式）一起聊。 　　还有另外一些应用层的网络协议，其应用范围没有 HTTP 协议那么广，因此，Python 没有把它纳入到内置的标准模块中。这时候，前面提到的 PycURL 就可以派上用场了。你只要安装一个 PycURL，就可以搞定十几种应用层协议（FTP, FTPS, Gopher, SCP, SFTP, TFTP, TELNET, LDAP, LDAPS, IMAP, POP3, SMTP），非常之爽！ 　　前面提到，如果软件系统自己实现了专有的应用层协议，那测试人员进行灰盒测试时，就必须了解该专有协议的格式以及传输层的知识。在这种情况下，测试人员可能需要直接和 Socket 打交道。</p>
+
+<p>　　Python 内置了对 socket 的支持，Python 官方的洋文介绍在<a href="https://docs.python.org/howto/sockets.html">这里</a>。Python 的 socket API 和传统的伯克利套接字 API 很像，如果你之前写过 C 语言的 socket 程序，那搞定 Python 的 socket 程序肯定是不在话下滴。</p>
+
+<p>　　但你千万别高兴得太早。用脚本来模拟软件模块之间的 socket 通讯，主要难点往往不在于socket，而在于专有协议本身。有些专有的通讯协议格式多变且复杂，有些虽然格式不太复杂，但是通讯双方交互的逻辑很复杂。因此，在 socket 层面进行灰盒测试，测试人员要多花精力在这方面。 对“跨主机的模块接口”该如何进行灰盒测试，就介绍到这里。下一个帖子介绍“主机内跨进程的模块接口”该如何搞。</p>
+
+<p><a href="https://program-think.blogspot.com/2010/11/grey-box-testing-0.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

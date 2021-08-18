@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 如何防止黑客入侵[0]&amp;#65306;概述 | 编程随想镜像站 " />
+    <meta name="og:description" content="先声明一下： 其实本系列更恰当的名称应该是《如何防止骇客入侵》。因为”黑客“与”骇客“是截然不同的两个概念。只是考虑到本系列是面向技术菜鸟，而他们大都只听说过”黑客“。所以才用了这个标题。
+　上回俺在“如何隐藏踪迹，避免跨省追捕”系列中，谈到了操作系统的安全防范，其中有一个很重要的环节，就是防止自己的电脑被黑客入侵。当时由于篇幅有限，没有展开讨论。所以，今天就把这个话题补上。
+　防范黑客入侵，会涉及到不同方面的话题。因此，俺打算每个话题写一个帖子。有些话题，除了涉及技术领域，还会涉及非技术领域（也就是社会工程学）。对“社会工程学”不太熟悉的同学，可以先翻墙看“这里”，扫盲一下。 另外，本系列面向不太熟悉计算机安全的网友，某些技术细节会讲得比较啰嗦。懂行的网友请自行略过，以免浪费宝贵的时间。 为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：
+1. 避免使用高权限用户
+2. 攻击者如何搞定你的口令/密码？
+3. 如何构造安全的口令/密码？
+4. 安全漏洞的基本防范
+5. Web相关的防范（上）
+6. Web相关的防范（中）
+7. Web相关的防范（下）
+8. 物理隔离的几种玩法
+9. （未完待续）" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=如何防止黑客入侵[0]&amp;#65306;概述" />
+    <title> 如何防止黑客入侵[0]&amp;#65306;概述 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    如何防止黑客入侵[0]&amp;#65306;概述
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　先声明一下： 　　其实本系列更恰当的名称应该是《如何防止骇客入侵》。因为”黑客“与”骇客“是截然不同的两个概念。只是考虑到本系列是面向技术菜鸟，而他们大都只听说过”黑客“。所以才用了这个标题。</p>
+
+<p>　　上回俺在“<a href="https://program-think.blogspot.com/2010/04/howto-cover-your-tracks-0.html">如何隐藏踪迹，避免跨省追捕</a>”系列中，谈到了<a href="https://program-think.blogspot.com/2010/05/howto-cover-your-tracks-3.html">操作系统的安全防范</a>，其中有一个很重要的环节，就是防止自己的电脑被黑客入侵。当时由于篇幅有限，没有展开讨论。所以，今天就把这个话题补上。</p>
+
+<p>　　防范黑客入侵，会涉及到不同方面的话题。因此，俺打算每个话题写一个帖子。有些话题，除了涉及技术领域，还会涉及非技术领域（也就是社会工程学）。对“<strong>社会工程学</strong>”不太熟悉的同学，可以先翻墙看“<a href="https://program-think.blogspot.com/2009/05/social-engineering-0-overview.html">这里</a>”，扫盲一下。 　　另外，本系列面向不太熟悉计算机安全的网友，某些技术细节会讲得比较啰嗦。懂行的网友请自行略过，以免浪费宝贵的时间。 为了方便阅读，把本系列帖子的目录整理如下（需翻墙）：</p>
+
+<p>1. <a href="https://program-think.blogspot.com/2010/06/howto-prevent-hacker-attack-1.html">避免使用高权限用户</a></p>
+
+<p>2. <a href="https://program-think.blogspot.com/2010/06/howto-prevent-hacker-attack-2.html">攻击者如何搞定你的口令/密码？</a><br />
+3. <a href="https://program-think.blogspot.com/2010/06/howto-prevent-hacker-attack-3.html">如何构造安全的口令/密码？</a><br />
+4. <a href="https://program-think.blogspot.com/2010/08/howto-prevent-hacker-attack-4.html">安全漏洞的基本防范</a><br />
+5. <a href="https://program-think.blogspot.com/2012/08/howto-prevent-hacker-attack-5.html">Web相关的防范（上）</a><br />
+6. <a href="https://program-think.blogspot.com/2012/09/howto-prevent-hacker-attack-6.html">Web相关的防范（中）</a><br />
+7. <a href="https://program-think.blogspot.com/2012/10/howto-prevent-hacker-attack-7.html">Web相关的防范（下）</a><br />
+8. <a href="https://program-think.blogspot.com/2016/12/howto-prevent-hacker-attack-8.html">物理隔离的几种玩法</a><br />
+9. （未完待续）</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

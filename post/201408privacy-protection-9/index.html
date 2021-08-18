@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 如何保护隐私[9]&amp;#65306;如何限制桌面软件的流氓行为&amp;#65311; | 编程随想镜像站 " />
+    <meta name="og:description" content="在本系列的前一篇，介绍了“流氓的桌面软件有哪些替代品”。今天主要介绍一下，如何对付那些“【缺乏替代品】的流氓软件”（比如：QQ、迅雷）。 本文会逐一介绍5种不同的方案，供大伙儿参考。在本文末尾会总结每种方案分别适用哪些情况。
+某些流氓软件的开发商，除了开发桌面客户端版本，有时候也会提供“Web 版本”。在这种情况下，咱们就可以拿“Web 版本”来取代桌面版本。 比如：疼逊公司提供了一个 Web QQ。那么你就可以用 Web QQ 来替代桌面版的 QQ； 比如：很多网盘提供商同时提供网盘的“Web 操作界面”和“桌面客户端”。那么你就可以：只用 Web 界面操作网盘，不安装桌面客户端。
+基于 Web 的应用软件，有好几种不同的类型，在隐私方面的安全性也各不相同。下面逐一介绍。在下面的介绍中，会提及“浏览器扩展”和“浏览器插件”。如果你搞不清楚这两者的差别，先看之前的“这篇博文”，其中有一段文字是“◇插件和扩展的区别”。
+　纯 Web
+　所谓的“纯 Web”，就是说只用到 HTML、JavaScript脚本、CSS 样式。除此之外，没有用到其它其它东西。 这种形式的 Web 应用是最安全的。对于这种形式，JS 脚本运行在浏览器内置的脚本沙箱中，它对文件系统的访问是受限的。换句话说，【无法】随意操作电脑本地的文件系统。
+　使用了“扩展/extension”技术
+　浏览器扩展能干的事情，比“纯 Web”更多。多出来的功能主要是：能够操作本地的文件系统。假设你安装了一个不怀好意的扩展，理论上它是可以读取你本地的某些敏感文件并通过 Web 方式（HTTP方式）发送出去。 提醒一下：并不是所有的浏览器都支持“扩展”机制。
+　使用了“插件/plugin”技术
+　“插件”比“扩展”牛逼的地方在于，插件是本地代码（也叫“原生代码”）。也就是说，普通客户端软件能干的事情，插件都能干。所以，插件的危险性更大，基本上等同于客户端软件。 比如前几天曝光的“支付宝偷偷监控网络流量”。那个监控你网络流量的进程，就是在安装支付宝控件之后，偷偷带进去的。而“支付宝控件”本质上就是“浏览器插件”。 综上所述，如果你企图用“Web 版本”来替代“桌面版本”，至少先要确保“Web 版本”没有使用“浏览器插件”技术。用到了“插件”的 Web 应用，其隐私威胁跟桌面客户端类似——也就没有必要替代了。 主要优点是：操作简单，无需进行各种额外的配置，无需安装额外的桌面软件。 此招数的缺点有两个：" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=如何保护隐私[9]&amp;#65306;如何限制桌面软件的流氓行为&amp;#65311;" />
+    <title> 如何保护隐私[9]&amp;#65306;如何限制桌面软件的流氓行为&amp;#65311; | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    如何保护隐私[9]&amp;#65306;如何限制桌面软件的流氓行为&amp;#65311;
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　在本系列的前一篇，介绍了“<a href="https://program-think.blogspot.com/2014/08/privacy-protection-8.html">流氓的桌面软件有哪些替代品</a>”。今天主要介绍一下，如何对付那些“【缺乏替代品】的流氓软件”（比如：QQ、迅雷）。 　　本文会逐一介绍5种不同的方案，供大伙儿参考。在本文末尾会总结每种方案分别适用哪些情况。<br />
+　　某些流氓软件的开发商，除了开发桌面客户端版本，有时候也会提供“Web 版本”。在这种情况下，咱们就可以拿“Web 版本”来取代桌面版本。 　　比如：疼逊公司提供了一个 Web QQ。那么你就可以用 Web QQ 来替代桌面版的 QQ； 　　比如：很多网盘提供商同时提供网盘的“Web 操作界面”和“桌面客户端”。那么你就可以：只用 Web 界面操作网盘，不安装桌面客户端。<br />
+　　基于 Web 的应用软件，有好几种不同的类型，在隐私方面的安全性也各不相同。下面逐一介绍。在下面的介绍中，会提及“浏览器扩展”和“浏览器插件”。如果你搞不清楚这两者的差别，先看之前的“<a href="https://program-think.blogspot.com/2012/08/howto-prevent-hacker-attack-5.html">这篇博文</a>”，其中有一段文字是“◇插件和扩展的区别”。</p>
+
+<p>　　<strong>纯 Web</strong></p>
+
+<p>　　所谓的“纯 Web”，就是说只用到 HTML、JavaScript脚本、CSS 样式。除此之外，没有用到其它其它东西。 　　这种形式的 Web 应用是最安全的。对于这种形式，JS 脚本运行在浏览器内置的脚本沙箱中，它对文件系统的访问是受限的。换句话说，【无法】随意操作电脑本地的文件系统。</p>
+
+<p>　　<strong>使用了“扩展/extension”技术</strong></p>
+
+<p>　　浏览器扩展能干的事情，比“纯 Web”更多。多出来的功能主要是：能够操作本地的文件系统。假设你安装了一个不怀好意的扩展，理论上它是可以读取你本地的某些敏感文件并通过 Web 方式（HTTP方式）发送出去。 　　提醒一下：并不是所有的浏览器都支持“扩展”机制。</p>
+
+<p>　　<strong>使用了“插件/plugin”技术</strong></p>
+
+<p>　　“插件”比“扩展”牛逼的地方在于，插件是本地代码（也叫“原生代码”）。也就是说，普通客户端软件能干的事情，插件都能干。所以，插件的危险性更大，基本上等同于客户端软件。 　　比如前几天曝光的“支付宝偷偷监控网络流量”。那个监控你网络流量的进程，就是在安装支付宝控件之后，偷偷带进去的。而“支付宝控件”本质上就是“浏览器插件”。 　　综上所述，如果你企图用“Web 版本”来替代“桌面版本”，至少先要确保“Web 版本”没有使用“浏览器插件”技术。用到了“插件”的 Web 应用，其隐私威胁跟桌面客户端类似——也就没有必要替代了。 　　主要优点是：操作简单，无需进行各种额外的配置，无需安装额外的桌面软件。 　　此招数的缺点有两个：</p>
+
+<p>　　<strong>缺点1</strong></p>
+
+<p>　　使用了 Web 版本之后，虽然可以避免桌面客户端偷窥你的本地文件，但是你通过 Web 端产生的内容还是会被 Web 服务器收集到。 　　比如你用了 Web QQ 之后，虽然它无法偷窥你的本地文件，但是腾讯服务器依然可以偷窥你的聊天内容。</p>
+
+<p>　　<strong>缺点2</strong></p>
+
+<p>　　通常，Web 版本的功能不如桌面版本的功能那么丰富。 　　比如“Web QQ”的功能比“桌面 QQ”的功能少很多。<br />
+　　如果某个流氓软件的【基本功能】与网络无关，那么你可以采用网络防火墙限制该软件的网络行为。 　　比如：你需要用国产的播放器来播放【本地的】视频文件和音乐文件。并且你既不需要“自动同步字幕”，也不需要“自动同步歌词”之类的功能。在这种情况下，该软件就完全没有理由访问网络。那么你就可以通过配置网络防火墙，让该软件无法联网。<br />
+　　<strong>局限性1</strong> 　　某些流氓软件需要以管理员权限安装。在这种情况下，流氓软件也就获得了管理员权限。在“管理员权限”下，几乎可以进行任何软件层面操作。从理论上讲，可以利用管理员权限进行某些操作，来绕过网络防火墙的监控。</p>
+
+<p>　　<strong>局限性2</strong></p>
+
+<p>　　某些比较狡猾的流氓软件，自己的主程序不会直接联网，而是通过创建一个临时的 exe 文件并启动该 exe（子进程），让子进程完成敏感的联网操作。以此来骗过网络防火墙。对这类软件，即使你禁止该软件的主程序联网，它还是能通过启动子进程的方式，把某些敏感的资料偷偷发送出去。 　　用此招数，你可以直接使用流氓软件的桌面版本。相比“方案1”的优势在于——能保留软件的全部功能。 　　另外，此招数可以跟下面要介绍的“方案3”搭配组合。 　　此招数的缺点包括：</p>
+
+<p>　　<strong>缺点1</strong></p>
+
+<p>　　如果该流氓软件的基本功能依赖于网络（比如：聊天工具、下载工具），就没法用这招。</p>
+
+<p>　　<strong>缺点2</strong></p>
+
+<p>　　网络防火墙的限制有可能被绕过（参见上述提到的两个局限性）</p>
+
+<p>　　某些流氓软件可以制作成“绿色版本”（俗称“绿化”）。绿化之后的软件，无需安装，而且也无需管理员权限就可以运行。因此，你可以创建一个【低权限】的操作系统用户，以这个用户的身份来运行该流氓软件。关于 Windows 的“用户组、用户权限”等概念的更多介绍，请看之前的“<a href="https://program-think.blogspot.com/2010/06/howto-prevent-hacker-attack-1.html">这篇博文</a>”。 　　另外，从 WinXP 开始，Windows 内置了“快速用户切换”（洋文叫：Fast User Switching）的功能。你可以利用此功能在不同的用户之前切换。不想使用“用户切换”的同学，也可以在同一个桌面上运行“隶属于不同用户的进程”（具体做法，上面那篇博文也有提到）。 　　和这个招数搭配的措施是：你要适当地配置文件系统的访问控制权限。比如你日常操作电脑的是“A用户”，用来运行流氓软件的低权限用户是“B用户”。那么你需要设置那些存放敏感文件的目录，让“B用户”【无法读写】这些目录。至于如何设置目录的 ACL，稍微 Google 一下就能查到教程。 　　提醒一下： 　　Windows 支持的文件系统主要有两类：NTFS 和 FAT 系列（FAT12、FAT16、FAT32）。“FAT 系列”【不支持】访问控制权限。 　　比如“迅雷”是可以制作成绿色版本的。俺分别在它的5.8版本和7.2版本试验过。 　　用此招数，你可以直接使用流氓软件的桌面版本。相比“方案1”的优势在于——能保留软件的全部功能。 　　另外，此招数可以跟“方案2”搭配组合。 　　此招数的缺点包括：</p>
+
+<p>　　<strong>缺点1</strong></p>
+
+<p>　　如果某个流氓软件无法制作绿色版本，这招就失效了。</p>
+
+<p>　　<strong>缺点2</strong></p>
+
+<p>　　操作相对繁琐（你需要先制作绿色版本，然后还需要创建专门的用户，最后还要设置文件系统的 ACL）。<br />
+　　有一类安全工具叫做“沙箱”（有时也称“沙盒”）。沙箱软件可以创建出一个独立的运行环境，以实现【进程级别】的隔离。 　　所谓“进程级别的隔离”就是说：你可以在沙箱中运行某个进程，沙箱软件负责把该进程跟系统的其它部分隔离开来。即使该进程图谋不轨，想要进行某些危险操作，这些操作也被限制在沙箱之内。 　　所以，咱们可以利用“沙箱软件”来运行那些流氓软件。<br />
+　　目前，【国外】比较有名的沙箱软件是 <a href="https://en.wikipedia.org/wiki/Sandboxie">Sandboxie</a>。如果你担心网页挂马，可以让浏览器运行在 Sandboxie 的沙箱之内。<br />
+　　<strong>局限性1</strong> 　　沙箱软件依赖于操作系统本身的一些机制（比如系统的 hook 机制）。如果操作系统本身出现一些安全漏洞，可能会导致某些流氓软件突破沙箱的隔离。 　　另外，如果沙箱软件本身考虑不周到，也会导致隔离环境出现漏洞，可能被流氓软件用来突破沙箱。</p>
+
+<p>　　<strong>局限性2</strong></p>
+
+<p>　　有些沙箱软件只能对磁盘操作进行隔离，但是【无法】对网络操作进行隔离（无法禁止流氓软件联网）。 　　如果你需要隔离网络操作，但是你用的沙箱又没有此功能，那么你可以考虑把此招数跟“方案2”搭配。 　　用此招数，你可以直接使用流氓软件的桌面版本。相比“方案1”的优势在于——能保留软件的全部功能。 　　不管流氓软件是否能制作绿色版本，都可以使用此招数。所以此招数比“方案3”更灵活。 　　主要缺点有如下几个：</p>
+
+<p>　　<strong>缺点1</strong></p>
+
+<p>　　某些软件（尤其是比较底层的软件）运行在沙箱中会出现兼容性问题。</p>
+
+<p>　　<strong>缺点2</strong></p>
+
+<p>　　由于前面提到的“沙箱的局限性”，会导致隔离不彻底。</p>
+
+<p>　　<strong>缺点3</strong></p>
+
+<p>　　多数沙箱软件通常无法跨系统（比如前面提到的 Sandboxie 是运行在 Windows 上，所以它只能用来隔离 Windows 软件）。 　　如果你对跨平台的需求不明显，这个缺点基本可以忽略。<br />
+　　所谓的“操作系统虚拟机”（为了打字省力，以下简称“VM”），就是用专门的软件在你现有的操作系统内部再虚拟出若干个操作系统。在这种情况下，你原有的操作系统称为“物理系统”或“Host OS”；那些虚拟出来的系统称为“虚拟系统”或“Guest OS”。 　　有了 VM 之后，你就可以创建出一个或多个 Guest OS，在那上面运行流氓软件。由于 Guest OS 与 Host OS 是彻底隔离的，你完全不用担心 Guest OS 里面的进程偷窥 Host OS 的文件系统。 　　所谓的“彻底隔离”，俺补充说明一下： 　　因为 Guest OS 运行于 Host OS 之上，Host OS 是可以看到 Guest OS 里面的东西；反之则【不行】。如果有多个 Guest OS，互相之间看不到。</p>
+
+<p>　　关于 VM 的更多介绍，请参见《<a href="https://program-think.blogspot.com/2012/10/system-vm-0.html">扫盲操作系统虚拟机</a>》系列教程。</p>
+
+<p>　　至少在10年前，俺就以虚拟系统（Guest OS）作为自己日常的使用系统。俺的 Host OS 除了装一个虚拟机软件，其它软件几乎都【不】装。需要用到的软件都装在 Guest OS 里面。而且俺的笔记本电脑里面装了 N 多的虚拟机，分别派不同的用处。比如： 一个专门用于“编程随想”这个身份 一个专门用于公司的办公环境（写文档、收发邮件） 一个专门用于公司的开发环境（留个开环境帮同事解决疑难编程问题） 一个专门用于业余时间的开发环境（业余时写代码） 一个专门用于业余时间的上网环境（业余时上网） （还有很多，不一一列举） 　　搞这么多虚拟机的好处在于，把自己的敏感数据分散开——即便某个虚拟系统被入侵，其它虚拟系统【不受】影响。 　　而且 VM 软件都会提供【快照功能】——这个功能是 VM 的精华。比如每次刚装好系统，或者刚升级好系统，俺都会做一个快照。用了几天之后，就回退到这个快照。就算这几天当中被恶意软件（病毒/木马/流氓软件）污染了系统，只要回退到快照，虚拟系统又纯洁如初 :) 　　前几天有读者问俺用的是哪个系统清理工具。俺回答说：有了 VM 软件，根本【无需】系统清理工具。为啥捏？因为每次回退快照，系统垃圾自动就没了（等同于一次彻底的清理）。 　　VM 的优点很多，至少包括如下：</p>
+
+<p>　　<strong>优点1</strong></p>
+
+<p>　　最好的兼容性。 　　前面提到的“方案3”和“方案4”，都可能会导致一些兼容性的问题。而 VM 完全没有。</p>
+
+<p>　　<strong>优点2</strong></p>
+
+<p>　　最好的隔离性（关于这点，下面俺单独开了一个章节详述）</p>
+
+<p>　　<strong>优点3</strong></p>
+
+<p>　　VM 的快照功能可以帮你完成很多额外的工作（参见俺刚才的举例）。</p>
+
+<p>　　<strong>优点4</strong></p>
+
+<p>　　彻底实现“跨平台”。 　　比如你可以用 Windows 做 Host OS，然后在其中虚拟出一个 Linux 或 Mac 的 Guest OS；反之亦然。而沙箱软件做不到这点。 　　俺个人认为：对于那些安全要求高的网友，VM 的方案是最佳方案。此方案有如下两个不太明显的缺点：</p>
+
+<p>　　<strong>缺点1</strong></p>
+
+<p>　　如果要使用，你的硬件配置不能太低。 　　如今电脑硬件的配置已经越来越好（动不动就是好几 GB 的内存，动不动就 4核/8核），这个缺点基本可以忽略。</p>
+
+<p>　　<strong>缺点2</strong></p>
+
+<p>　　要花点时间学习如何使用 VM。</p>
+
+<p>　　不过这个缺点也好办——俺在2年前（2012）就写了一个《<a href="https://program-think.blogspot.com/2012/10/system-vm-0.html">扫盲操作系统虚拟机</a>》的系列教程。不会用 VM 的同学可以先去看这个教程。</p>
+
+<p>　　俺在博客上写了不少操作系统虚拟机的博文。但是一直没有介绍过“沙箱软件”。曾经有几个读者在留言中问道：为啥从来没普及过沙箱？今天借着这个机会说一下。</p>
+
+<p>　　前面俺提到了 VM 的各种优点。这里重点想说其中一点——<strong>隔离性</strong>。为啥捏？如果你对安全的要求比较高，“隔离性”是关键。而“VM”的隔离性远远好于“沙箱”。具体的分析如下：</p>
+
+<p>　　不论是 VM 还是沙箱，说白了都是为了创造出一个隔离的软件环境。这时候要考虑的维度有很多，至少包括：文件系统、内存、网络、外设（比如 USB 口）。 　　主流的 VM 软件可以支持上述【所有的】维度；而大部分沙箱软件只能做到文件系统和内存的隔离。有些沙箱虽然也支持网络隔离，但是其网络隔离的功能不如 VM 那么丰富（主流的 VM 软件通常支持至少3种以上的虚拟网卡模式）。 　　在使用“沙箱”的情况下，沙箱软件和流氓软件都运行在同一个操作系统中。如果这个操作系统出现某些安全漏洞，【可能会】导致流氓软件突破沙箱的隔离边界。 　　相对而言，使用 VM 的情况下，同时存在两个操作系统。VM 软件本身是运行在 Host OS 之上，而流氓软件运行在 Guest OS 之上。由于 VM 本身并不依赖 Guest OS。所以 Guest OS 出现安全漏洞，【不太可能】导致隔离边界被突破。 　　有些爱思考的同学会问了：如果 Host OS 出现安全漏洞，是否有可能导致隔离边界被突破。这种可能性是有的，但是操作的难度很大。为啥捏？因为流氓软件运行在 Guest OS 之内，它根本看不到 Host OS。换句话说，流氓软件根本就无法知道 Host OS 是啥类型的。连操作系统的类型都不知道，如何去利用操作系统的漏洞？ 　　在本文的结尾，稍微做一下总结发言，说一下每种招数适用的情况。 　　前提：对应的流氓软件提供 Web 版本 　　本方案无需额外的配置，也无需再安装其它桌面软件。所以适合那些非常菜鸟的网友，或者是那些非常懒的网友。另外，如果你只是想临时用一下某个流氓软件，也可以用这个招数。 　　前提：对应的流氓软件的【基本功能】与网络无关（比如：输入法、播放本地视频、播放本地音乐） 　　除了需要配置网络防火墙，无需额外安装其它软件。适合那些比较菜鸟的同学或者是比较懒的同学。 　　前提：对应的流氓软件能够“绿化” 　　需要自己手工制作绿色版本，而且还需要配置额外的操作系统用户和文件系统的访问控制权限。所以此招数适合于具有一定折腾能力的网友。而且电脑硬件又很差，用不了虚拟机方案。 　　前提：流氓软件需要能跟沙箱软件兼容。 　　如果你电脑硬件太差，用不了虚拟机。而且你又搞不定绿色版本（比如流氓软件不支持“绿化”，或者你不懂得如何“绿化”），那么你可以用此方案。 　　前提：无任何限制。 　　此方案堪称终极解决方案，尤其适合于对安全要求比较高的同学。此方案需要有一定的折腾能力（不需很高），而且电脑的硬件配置至少是中等水平。<br />
+　　不论你用的是哪个方案。如果你想使用某个流氓软件，并且<strong>该流氓软件的基本功能是依赖于网络的</strong>，那么，这款流氓软件就有可能收集到你的某些隐私并发送给厂商的服务器。即使你用了最安全的“虚拟机隔离”，顶多也只是降低了泄漏的信息量而已。<br />
+　　举例来说：你在虚拟机里面运行 QQ，可以阻止 QQ 偷偷扫盲你的 Host OS 的磁盘。但是，你的所有聊天内容，腾讯的服务器上都有记录。所以，<strong>最安全的是：既不用流氓公司的软件，也不用流氓公司的网络服务</strong>。</p>
+
+<p><a href="https://program-think.blogspot.com/2013/06/privacy-protection-0.html#index">回到本系列的目录</a></p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

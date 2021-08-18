@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="../../post/index.xml">
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SpeechFreedomCN">
+    <meta name="twitter:creator" content="@SpeechFreedomCN">
+    <meta name="og:title" content=" 从 Google 搜索的严重 bug 想开去 | 编程随想镜像站 " />
+    <meta name="og:description" content="昨天晚上用 Google 查资料，看到所有的搜索结果都注明是恶意站点。第一反应以为自己眼花了；然后开始怀疑我的浏览器出问题，换了几个浏览器都是老样子；后来又想，会不会是我的 ISP 在搞鬼。等了十多分钟没解决，只好换百度查资料&hellip;
+今天早上看新闻才知道居然是 Google 的【人为】失误，居然是全球性的，居然持续了40多分钟。以下是 Google 的官方说法（原文连接）：
+ 谷歌表示他们一直在和一家非盈利组织 StopBadware.org 合作，通过这个组织给出的名单对各个URL进行存在恶意软件的信息标注。这个组织的恶意网站名单是人工审核并添加，所以这份名单是人为生成而不是算法生成的。谷歌昨晚进行列表更新时，在下载回来的名单里，错误的出现了&rdquo;/&ldquo;这个URL地址，所以错误的将所有地址判断为恶意网站。
+ 　比较有戏剧性的是，Google 提到的“非盈利组织 StopBadware.org”也发表声明：
+谷歌的恶意网站列表并非是我们提供的，而是其自己生成的。 这件事情改变了我对 Google 的几个看法。
+　第1点：虽然我很看不起中国谷歌，但是美国 Google 在我看来一直是一个优秀的公司。现在它居然出现这么低级的错误（开发过商业Web网站的，应该都知道这有多低级），而且持续40多分钟才搞定。看来 Google“优秀”的名声要打折扣了。
+　第2点：假如 StopBadware 的说法成立，那我就得怀疑 Google 的诚信了。是否 Google 有意推卸责任给其它组织机构？看来 Google“不做恶”的名声要打折扣了。
+第3点：Google 一直声称他的所有数据收集、处理、存储都是依靠程序进行的，不会涉及人工干预。我以前也一直猜测 Google 的恶意站点列表是依靠诸如神经网络、遗传算法、等等牛逼的算法来搞定的，现在 Google 居然承认是靠手工审核添加。看来 Google“不采用人工干预”的名声要打折扣了。 第4点：Google 一直在推动云计算，希望大伙儿尽可能地把桌面应用搬上云端。我本来觉得云计算这玩意也挺不错的（优点多多）。现在出了这档子事，我就得谨慎考虑一下了。假如我的个人数据都委托给 Google 代管，万一 Google 出个什么纰漏（比如被 Hacker 搞了），那可就悬了。" />
+    <meta name="og:image"
+        content="https://opvlbqxurl.execute-api.ap-northeast-2.amazonaws.com/prod/random?keyword=programming&slug=从 Google 搜索的严重 bug 想开去" />
+    <title> 从 Google 搜索的严重 bug 想开去 | 编程随想镜像站</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-151212685-4', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/css/blog.css" />
+    
+    <!-- plugins -->
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/bootstrap/bootstrap.min.css ">
+    
+    <link rel="stylesheet" href="https://project-gutenberg.github.io/program-think/plugins/themify-icons/themify-icons.css ">
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/">Home</a>
+        </div>
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://project-gutenberg.github.io/program-think/post/index.xml">RSS</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://project-gutenberg.github.io/program-think/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                    从 Google 搜索的严重 bug 想开去
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-12">
+        <div class="tile is-child box">
+            
+
+            <div class="content">
+                <p>　　昨天晚上用 Google 查资料，看到所有的搜索结果都注明是恶意站点。第一反应以为自己眼花了；然后开始怀疑我的浏览器出问题，换了几个浏览器都是老样子；后来又想，会不会是我的 ISP 在搞鬼。等了十多分钟没解决，只好换百度查资料&hellip;<br />
+　　今天早上看新闻才知道居然是 Google 的【人为】失误，居然是全球性的，居然持续了40多分钟。以下是 Google 的官方说法（<a href="https://googleblog.blogspot.com/2009/01/this-site-may-harm-your-computer-on.html">原文连接</a>）：</p>
+
+<blockquote>
+<p>谷歌表示他们一直在和一家非盈利组织 StopBadware.org 合作，通过这个组织给出的名单对各个URL进行存在恶意软件的信息标注。这个组织的恶意网站名单是人工审核并添加，所以这份名单是人为生成而不是算法生成的。谷歌昨晚进行列表更新时，在下载回来的名单里，错误的出现了&rdquo;/&ldquo;这个URL地址，所以错误的将所有地址判断为恶意网站。</p>
+</blockquote>
+
+<p>　　比较有戏剧性的是，Google 提到的“非盈利组织 StopBadware.org”也发表声明：<br />
+谷歌的恶意网站列表并非是我们提供的，而是其自己生成的。 　　这件事情改变了我对 Google 的几个看法。</p>
+
+<p>　　第1点：虽然我很看不起中国谷歌，但是美国 Google 在我看来一直是一个<strong>优秀</strong>的公司。现在它居然出现这么低级的错误（开发过商业Web网站的，应该都知道这有多低级），而且持续40多分钟才搞定。看来 Google“<strong>优秀</strong>”的名声要打折扣了。</p>
+
+<p>　　第2点：假如 StopBadware 的说法成立，那我就得怀疑 Google 的诚信了。是否 Google 有意推卸责任给其它组织机构？看来 Google“<strong>不做恶</strong>”的名声要打折扣了。<br />
+　　第3点：Google 一直声称他的所有数据收集、处理、存储都是依靠程序进行的，不会涉及人工干预。我以前也一直猜测 Google 的恶意站点列表是依靠诸如神经网络、遗传算法、等等牛逼的算法来搞定的，现在 Google 居然承认是靠手工审核添加。看来 Google“<strong>不采用人工干预</strong>”的名声要打折扣了。 　　第4点：Google 一直在推动云计算，希望大伙儿尽可能地把桌面应用搬上云端。我本来觉得云计算这玩意也挺不错的（优点多多）。现在出了这档子事，我就得谨慎考虑一下了。假如我的个人数据都委托给 Google 代管，万一 Google 出个什么纰漏（比如被 Hacker 搞了），那可就悬了。</p>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <br><br>
+            <span>友链：<a href="http://www.xys.org/">新语丝</a>
+                <span> </span><a href="https://twitter.com/fangshimin">方舟子Twitter</a>
+            </span>
+            <br><br>
+            Copyright &copy; 编程随想镜像站 2021
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+
+</html>

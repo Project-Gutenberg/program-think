@@ -1,0 +1,23 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>编程随想镜像站</title>
+    <link>https://project-gutenberg.github.io/program-think/https://project-gutenberg.github.io/program-think/</link>
+    <description>Recent content on 编程随想镜像站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright © 编程随想</copyright>
+    
+        <atom:link href="https://project-gutenberg.github.io/program-think/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Posts</title>
+      <link>https://project-gutenberg.github.io/program-think/https://project-gutenberg.github.io/program-think/post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://project-gutenberg.github.io/program-think/post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
