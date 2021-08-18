@@ -1,12 +1,12 @@
-baseURL = "https://speechfree.github.io/xys/"
-site_url = "https://speechfree.github.io/xys/"
+baseURL = "https://project-gutenberg.github.io/program-think/"
+site_url = "https://project-gutenberg.github.io/program-think/"
 relativeURLs = true
 languageCode = "zh-cn"
-title = "新语丝镜像站"
-auth = "新语丝"
-description = "新语丝又一个镜像站"
+title = "编程随想镜像站"
+auth = "编程随想"
+description = "编程随想"
 theme = "jeffprod"
-copyright = "Copyright © 新语丝"
+copyright = "Copyright © 编程随想"
 enableRobotsTXT = true
 disableAliases = true
 googleAnalytics = "UA-151212685-4"
@@ -15,7 +15,7 @@ media_folder = "/site/static/images/uploads"
 public_folder = "/static/images/uploads"
 
 [params]
-  DEPLOY_PRIME_URL = "https://speechfree.github.io/xys/"
+  DEPLOY_PRIME_URL = "https://project-gutenberg.github.io/program-think/"
 
 [outputs]
 home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]

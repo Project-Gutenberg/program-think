@@ -1,7 +1,7 @@
-## 新语丝
+## 编程随想
 
-新语丝镜像站
+编程随想镜像站
 
 ## 网站
 
- [Github Pages](https://speechfree.github.io/xys/)
+ [Github Pages](https://project-gutenberg.github.io/program-think/)
